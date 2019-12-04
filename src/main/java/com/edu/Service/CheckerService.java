@@ -1,11 +1,9 @@
 package com.edu.Service;
 
 import com.edu.Mapper.CheckerMapper;
-import com.edu.Pojo.Checker;
-import org.apache.logging.log4j.core.util.JsonUtils;
+import com.edu.Pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.List;
 
@@ -20,8 +18,8 @@ public class CheckerService {
     @Autowired
     private CheckerMapper checkerMapper;
 
-    public Checker selectOne(Checker checker){
-        List<Checker> list = checkerMapper.queryChecker(checker);
+    public User selectOne(User user){
+        List<User> list = checkerMapper.queryChecker(user);
         if(list != null && list.size() > 1){
             throw  new RuntimeException("查询到多组数组");
         }

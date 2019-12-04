@@ -46,7 +46,7 @@
                         </label>
                         记住我
                     </span>
-            <div class="clear" style="color: white">${msg}</div>
+            <div class="clear" style="color: red">${msg}</div>
             <input name="login" type="submit" value="登 录">
         </form>
     </div>

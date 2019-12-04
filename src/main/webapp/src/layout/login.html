@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Smart Login Form Responsive Widget Template</title>
+        <!-- Meta tag Keywords -->
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+
+        <!-- Meta tag Keywords -->
+        <!-- css files -->
+        <link href="../res/css/style.css" media="all" rel="stylesheet" type="text/css">
+    <body>
+        <!--header-->
+        <div class="agileheader">
+            <h1></h1>
+        </div>
+        <!--//header-->
+        <!--main-->
+        <div class="main-w3l">
+            <div class="w3layouts-main">
+                <h2>立即登录</h2>
+                <form action="demandplaner/yearplantest.html" method="post">
+                    <label>
+                        <input name="Email" onblur="if (this.value === '') {this.value = 'E-Mail';}"
+                               onfocus="this.value = '';" placeholder="请输入账号" required type="email"
+                               value=""/>
+                    </label>
+                    <label>
+                        <input name="Password" onblur="if (this.value === '') {this.value = '';}"
+                               onfocus="this.value = '';"
+                               required type="password"
+                               value=""/>
+                    </label>
+                    <span>
+                        <label>
+                            <input type="checkbox"/>
+                        </label>
+                        记住我
+                    </span>
+                    <h6>
+                        <a href="#">忘记密码?</a>
+                    </h6>
+                    <div class="clear"></div>
+                    <input name="login" type="submit" value="登 录">
+                </form>
+            </div>
+        </div>
+        <!--//main-->
+    </body>
+</html>

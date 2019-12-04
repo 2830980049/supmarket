@@ -63,7 +63,7 @@
     </resultMap>
 
     <select id="queryChecker" resultMap="Checker">
-        select * from checker_information
+        select * from user
         <where>
             <if test="checker_account!=null and checker_account!=''">
                 and checker_account=#{checker_account}

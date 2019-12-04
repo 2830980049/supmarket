@@ -1,7 +1,7 @@
 package com.edu.mapper.test;
 
 import com.edu.Mapper.base.CheckerBaseMapper;
-import com.edu.Pojo.Checker;
+import com.edu.Pojo.User;
 import com.edu.Pojo.Goods_records;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,13 +80,13 @@ public class test {
     @Test
     public void Checkss() {
         //5 使用代理对象执行方法
-        Checker checker = new Checker();
-        checker.setChecker_name("12");
-        List<Checker> checkers = null;
+        User user = new User();
+        user.setChecker_name("12");
+        List<User> users = null;
         //执行保存方法
-        checkers = checkerBaseMapper.queryChecker(checker);
-        for(Checker checker1:checkers)
-            System.out.println(checker1);
+        users = checkerBaseMapper.queryChecker(user);
+        for(User user1 : users)
+            System.out.println(user1);
     }
 
 }

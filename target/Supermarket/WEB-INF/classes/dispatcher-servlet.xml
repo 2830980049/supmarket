@@ -14,7 +14,7 @@
                         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 配置扫描spring注解时扫描的包，同时也开启了spring注解支持 -->
-    <context:component-scan base-package="com.edu.Mapper"/>
+    <context:component-scan base-package="com.edu"/>
 
     <!-- 开启springMVC相关注解支持 -->
     <mvc:annotation-driven/>

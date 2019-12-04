@@ -1,7 +1,6 @@
 package com.edu.Controller;
 
-import com.edu.Mapper.CheckerMapper;
-import com.edu.Pojo.Checker;
+import com.edu.Pojo.User;
 import com.edu.Service.CheckerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,20 +22,21 @@ public class IndexController {
     @Autowired
     CheckerService checkerService;
 
-    @RequestMapping(value = "/login.do",method = RequestMethod.GET)
+    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
     public ModelAndView login(){
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "/login.do",method = RequestMethod.POST)
+    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public ModelAndView loginSubmit(@RequestParam String loginname, @RequestParam String password, HttpServletRequest request){
-        Checker checker = new Checker();
-        checker.setChecker_account(loginname);
-        checker = checkerService.selectOne(checker);
-        System.out.println(checker);
-        if(checker != null){
-            request.getSession().setAttribute("checker",checker);
-            switch (checker.getPosition()){
+        User user = new User();
+        user.setChecker_account(loginname);
+        user.setChecker_password(password);
+        user = checkerService.selectOne(user);
+        System.out.println(user);
+        if(user != null){
+            request.getSession().setAttribute("user", user);
+            switch (user.getPosition()){
                 case "0":
                     return new ModelAndView("Admin/Start");
 
