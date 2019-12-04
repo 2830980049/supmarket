@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置扫描spring注解时扫描的包，同时也开启了spring注解支持 -->
+    <context:component-scan base-package="com.edu.Mapper"/>
+
+    <!-- 开启springMVC相关注解支持 -->
+    <mvc:annotation-driven/>
+
+    <!-- 开启spring aop 注解支持 -->
+    <aop:aspectj-autoproxy/>
+
+    <!--日志AOP-->
+    <!--<bean class="cn.edu.gues.web.aop.LogAspect"></bean>-->
+
+    <!-- 约定大于配置：约定视图页面的全路径 = prefix + viewName + suffix -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--配置拦截器-->
+    <!--<mvc:interceptors>
+
+    </mvc:interceptors>-->
+
+    <!-- 资源映射 静态资源不被拦截-->
+    <mvc:resources location="/src/res/" mapping="/src/res/**"/>
+
+</beans>

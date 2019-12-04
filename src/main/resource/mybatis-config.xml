@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!-- 使用log4j2作为日志实现 -->
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
+
+    <typeAliases>
+        <!-- 为指定包下的pojo类自动起别名 -->
+        <package name="com.edu.Pojo"/>
+    </typeAliases>
+
+    <plugins>
+        <!-- 分页插件 -->
+        <plugin interceptor="com.github.pagehelper.PageHelper"/>
+    </plugins>
+
+    <mappers>
+        <!--        自动加载指定包下的映射配置文件 -->
+        <!--        <package name="cn.edu.gues.mapper.base"/>-->
+        <!--        使用resource方式加载
+        <mapper resource="base/TbStaffBaseMapper.xml"/>
+        <mapper resource="base/TbDepartmentBaseMapper.xml"/>
+        <mapper resource="base/TbMergeBaseMapper.xml"/>
+        <mapper resource="base/TbPositionBaseMapper.xml"/>
+        <mapper resource="base/TbPlanBaseMapper.xml"/>
+        <mapper resource="base/TbMaterialBaseMapper.xml"/>
+        -->
+        <mapper resource="base/CheckerBaseMapper.xml"/>
+
+    </mappers>
+
+</configuration>
