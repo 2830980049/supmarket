@@ -9,7 +9,7 @@ public class Trade {
     private String trade_id;     //商品编号
     private String trade_name;   //商品名称
     private String trade_type;   //商品类型
-    private double trade_value;  //商品价格
+    private String trade_value;  //商品价格
     private Integer trade_number;//商品数量
 
     public String getTrade_id() {
@@ -36,11 +36,11 @@ public class Trade {
         this.trade_type = trade_type;
     }
 
-    public double getTrade_value() {
+    public String getTrade_value() {
         return trade_value;
     }
 
-    public void setTrade_value(double trade_value) {
+    public void setTrade_value(String trade_value) {
         this.trade_value = trade_value;
     }
 

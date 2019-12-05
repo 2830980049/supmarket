@@ -55,7 +55,7 @@
     <resultMap type="com.edu.Pojo.User" id="Checker">
         <result property="account" column="account"></result>
         <result property="username" column="username"></result>
-        <result property="password" column="password"></result>
+        <result property="passwords" column="passwords"></result>
         <result property="sex" column="sex"></result>
         <result property="birthday" column="birthday"></result>
         <result property="phone" column="phone"></result>
@@ -71,8 +71,8 @@
             <if test="username!=null and username!=''">
                 and username=#{username}
             </if>
-            <if test="password!=null and password!=''">
-                and password=#{password}
+            <if test="passwords!=null and passwords!=''">
+                and passwords=#{passwords}
             </if>
             <if test="sex!=null and sex!=''">
                 and sex=#{sex}

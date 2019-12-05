@@ -31,7 +31,7 @@
         <mapper resource="base/TbMaterialBaseMapper.xml"/>
         -->
         <mapper resource="base/CheckerBaseMapper.xml"/>
-
+        <mapper resource="base/AdminBaseMapper.xml"/>
     </mappers>
 
 </configuration>

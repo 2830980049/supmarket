@@ -20,7 +20,7 @@
     <!-- 象形异体字 -->
     <link href="<%=ctxPath%>/src/res/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- 主题风格 -->
-    <link href="<%=ctxPath%>/src/res/css/AdminLLKXL.min.css" rel="stylesheet">
+    <link href="<%=ctxPath%>/src/res/css/Admin.min.css" rel="stylesheet">
     <!-- 皮肤 -->
     <link href="<%=ctxPath%>/src/res/css/_all-skins.min.css" rel="stylesheet">
     <!--谷歌字体 -->
@@ -116,31 +116,6 @@
 </script>
 <%}%>
 
-<%
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con=DriverManager.getConnection("jdbc:mysql://39.106.152.196:3306/db_llkxl","root","Chen+Kai+123");
-    Statement statement=con.createStatement();
-    ResultSet rs=statement.executeQuery("SELECT * FROM tb_position");
-    List<String> list=new ArrayList<String>();
-    try{
-        while(rs.next()){
-            list.add(rs.getString("pt_name"));
-        }
-    }catch(SQLException ex){
-        System.out.println(ex.getMessage());
-    }
-    rs.close();
-    rs=statement.executeQuery("SELECT * FROM tb_department");
-    List<String> list1=new ArrayList<String>();
-    try{
-        while(rs.next()){
-            list1.add(rs.getString("dt_name"));
-        }
-    }catch(SQLException ex){
-        System.out.println(ex.getMessage());
-    }
-    statement.close();
-%>
 
 
 <div class="wrapper">
@@ -150,7 +125,7 @@
             <!-- 迷你标志为侧栏迷你50x50像素 -->
             <span class="logo-mini"><b>L</b>B</span>
             <!-- 常规状态和移动设备的徽标 -->
-            <span class="logo-lg">LLKXL智能制造系统</span>
+            <span class="logo-lg">启立智能超市系统</span>
         </a>
         <!-- 标题导航栏:样式可以在Header .less中找到 -->
         <nav class="navbar navbar-static-top">
@@ -163,15 +138,15 @@
                     <!-- 用户帐号:风格可以在dropdown.less中找到 -->
                     <li class="dropdown user user-menu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="hidden-xs">琳琳开心力</span>
+                            <span class="hidden-xs">噬魂</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <br>
                                 <br>
                                 <p>
-                                    琳琳开心力 - web开发人员
-                                    <small>2019.11.1</small>
+                                    启立 - web开发人员
+                                    <small>2019.12.4</small>
                                 </p>
                             </li>
                         </ul>
@@ -188,7 +163,9 @@
             <!-- 侧边栏用户面板 -->
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/querystaffs.do">所有员工</a></li>
+                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/Admin/admin">所有员工</a></li>
+                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
+                    <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/admin/admin">添加商品</a></li>
                 </ul>
             </div>
             <!-- 侧栏菜单::style可以在sidebar.less中找到-->
@@ -202,93 +179,67 @@
 
         <!-- 内容页眉(页眉） -->
         <section class="content-header">
-            <h2 align="center">员工个人信息详情表</h2>
+            <h2 align="center">添加员工信息</h2>
         </section>
         <!-- 主要内容 -->
-        <form id="fm-register" action="admin.do" class="content" method="post">
+            <form id="fm-register" action="<%=ctxPath%>/Admin/addchecker.do" class="content" method="post">
             <!--年度计划界面-->
             <div id="main-components">
-                <div>
                     <form form-control>
                         <table class="table  table-condensed table-responsive">
                             <tr>
-                                <td>登录名</td>
-                                <td>
-                                    <input autocomplete required minlength="1" maxlength="10" class="form-control" type="text" autofocus id="txtName" name="txtName" >
-                                    <span class="msg-default">用户名长度在1到10位之间</span>
+                                <td class="form-group"><label>帐号</label></td>
+                                <td class="form-group">
+                                    <input autocomplete required minlength="1" maxlength="20" class="form-control" type="text" autofocus id="account" name="account" >
+                                    <span class="msg-default"></span>
                                 </td>
-                                <td>QQ</td>
-                                <td>
-                                    <input required type="text" class="form-control" minlength="8" maxlength="11" autofocus id="qq" name="qq">
-                                    <span class="msg-default">QQ长度在8到11位之间</span>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>真实姓名</td>
-                                <td>
-                                    <input class="form-control"  minlength="1" maxlength="10" id="trueName" name="trueName" required type="text">
-                                    <span class="msg-default">姓名长度在1到10位之间</span>
-                                </td>
-                                <td>密码</td>
-                                <td>
-                                    <input required type="text" minlength="6" maxlength="20" class="form-control" autofocus id="password" name="password">
-                                    <span class="msg-default hidden">密码长度在6到20位之间</span>
+                                <td class="form-group"><label>密码</label></td>
+                                <td class="form-group">
+                                    <input required type="password" class="form-control" minlength="8" maxlength="40" autofocus id="passwords" name="passwords">
+                                    <span class="msg-default hidden">长度8-40位之间</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>职位</td>
-                                <td>
-                                    <select class="form-control" id="ptNum" name="ptNum">
-                                        <%for(int i=0;i<list.size();i++){%>
-                                        <option><%=list.get(i)%></option>
-                                        <%}%>
-                                    </select>
+                                <td class="form-group"><label>真实姓名</label></td>
+                                <td class="form-group">
+                                    <input class="form-control"  minlength="1" maxlength="20" id="username" name="username" required type="text">
+                                    <span class="msg-default hidden">长度10位之间</span>
                                 </td>
-                                <td>所属部门</td>
-                                <td>
-                                    <select class="form-control" id="dtNum" name="dtNum">
-                                        <%for(int i=0;i<list1.size();i++){%>
-                                        <option><%=list1.get(i)%></option>
-                                        <%}%>
+                                <td class="form-group"><label>性别</label></td>
+                                <td class="form-group">
+                                    <select class="form-control" id="sex" name="sex">
+                                        <option>男</option>
+                                        <option>女</option>
                                     </select>
                                 </td>
                             </tr>
-
                             <tr>
-                                <td>固定电话</td>
-                                <td>
-                                    <input class="form-control" id="hardPhone" name="hardPhone" pattern="(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$"
-                                           required type="text">
-                                    <span class="msg-default hidden">请输入合法的手机号</span>
+                                <td class="form-group"><label>出生日期</label></td>
+                                <td class="form-group">
+                                    <input class="form-control"  id="birthday" name="birthday" required type="date">
+                                    <span class="msg-default hidden">日期不能为空</span>
                                 </td>
-                                <td>手机</td>
-                                <td>
+                                <td class="form-group"><label>电话</label></td>
+                                <td class="form-group">
                                     <input class="form-control" id="phone" name="phone" pattern="(\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$"
                                            required type="text">
-                                    <span class="msg-default hidden">请输入合法的手机号</span>
+                                    <span class="msg-default hidden">手机号不合法</span>
                                 </td>
-
                             </tr>
+
                             <tr>
-                                <td>公司邮箱</td>
-                                <td>
-                                    <input class="form-control" id="companyEmail" name="companyEmail" autocomplete required type="email">
-                                    <span class="msg-default hidden">请输入合法的邮箱地址</span>
+                                <td class="form-group"><label>职位</label></td>
+                                <td class="form-group">
+                                    <select class="form-control" id="positions" name="positions">
+                                        <option>管理员</option>
+                                        <option>收银员</option>
+                                    </select>
                                 </td>
-                                <td>其他邮箱</td>
-                                <td>
-                                    <input class="form-control" id="otherEmail" name="otherEmail" autocomplete required type="email">
-                                    <span class="msg-default hidden">请输入合法的邮箱地址</span>
-                                </td>
-
                             </tr>
-
                         </table>
                         <input class="btn btn-default" id="bt-register" type="button" value="保存" onclick="sub();"/>
                         <input class="btn btn-default" type="reset" value="重置">
                     </form>
-                </div>
             </div>
         </form>
 
@@ -296,9 +247,9 @@
     <!-- /.主要内容 -->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 3.0.0
+            <b>Version</b> 1.0.0
         </div>
-        <strong>CRAETE TO 2019.11.1AdminLLKXL.</strong> 保留所有权
+        <strong>CRAETE TO 2019.12.4 Admin WUQILI.</strong> 保留所有权
     </footer>
     <script type="text/javascript">
 
@@ -322,7 +273,7 @@
                 count++;
             }
         }
-        if (count == 8) {
+        if (count == 5) {
             document.getElementById("fm-register").submit();
         } else {
             alert("请正确输入信息！");
@@ -340,149 +291,113 @@
     }
 
     /*1.对用户名进行验证*/
-    $('#txtName').blur(function () {
+    $('#account').blur(function () {
         if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '用户名不能为空';
+            this.nextElementSibling.innerHTML = '帐号不能为空';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('用户名不能为空');
+            this.setCustomValidity('帐号不能为空');
         } else if (this.validity.tooLong) {
-            this.nextElementSibling.innerHTML = '用户名不能多余10位';
+            this.nextElementSibling.innerHTML = '帐号不能多余20位';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('用户名不能多余10位');
+            this.setCustomValidity('帐号不能多余20位');
         } else {
             //获取输入框中的值
-            var u = document.getElementById("txtName");
-            var txtName = u.value;
+            var u = document.getElementById("account");
+            var account = u.value;
             //处理回调函数
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
                     var msg = xmlhttp.responseText;
                     if (msg == "true") {
-                        u.nextElementSibling.innerHTML = '用户名已被注册';
+                        u.nextElementSibling.innerHTML = '帐号已被注册';
                         u.nextElementSibling.className = 'msg-error';
                     } else {
-                        u.nextElementSibling.innerHTML = '用户名可用';
+                        u.nextElementSibling.innerHTML = '帐号可用';
                         u.nextElementSibling.className = 'msg-success';
                     }
                 }
             }
-            xmlhttp.open("get", "<%=ctxPath%>/checkName.do?txtName=" + txtName);
+            xmlhttp.open("get", "<%=ctxPath%>/checkName.do?account=" + account);
             xmlhttp.send();
         }
     });
-    $('#txtName').focus(function () {
-        this.nextElementSibling.innerHTML = '用户名长度在1到10位之间';
+    $('#account').focus(function () {
+        this.nextElementSibling.innerHTML = '长度10位之间';
         this.nextElementSibling.className = 'msg-default';
     });
 
-    $('#trueName').blur(function () {
+    $('#username').blur(function () {
         if (this.validity.valueMissing) {
             this.nextElementSibling.innerHTML = '姓名不能为空';
             this.nextElementSibling.className = 'msg-error';
             this.setCustomValidity('姓名不能为空');
-        } else if (this.validity.tooShort) {
-            this.nextElementSibling.innerHTML = '姓名长度在1到10位之间';
+        }
+        else if (this.validity.tooLong) {
+            this.nextElementSibling.innerHTML = '不能多于20位';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('姓名长度在1到10位之间');
-        } else {
+            this.setCustomValidity('不能多于20位');
+        }
+        else {
             this.nextElementSibling.innerHTML = '姓名格式正确';
             this.nextElementSibling.className = 'msg-success';
             this.setCustomValidity('');
         }
     });
-    $('#trueName').focus(function () {
-        this.nextElementSibling.innerHTML = '姓名长度在1到10位之间';
+    $('#username').focus(function () {
+        this.nextElementSibling.innerHTML = '长度10位之间';
         this.nextElementSibling.className = 'msg-default';
     });
 
     /*2.对密码进行验证*/
-    $('#password').blur(function () {
+    $('#passwords').blur(function () {
         if (this.validity.valueMissing) {
             this.nextElementSibling.innerHTML = '密码不能为空';
             this.nextElementSibling.className = 'msg-error';
             this.setCustomValidity('密码不能为空');
         } else if (this.validity.tooShort) {
-            this.nextElementSibling.innerHTML = '密码长度尽量别少于6位';
+            this.nextElementSibling.innerHTML = '长度不能少于8位';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('密码长度尽量别少于6位');
-        } else {
+            this.setCustomValidity('长度不能少于8位');
+        }
+        else if (this.validity.tooLong) {
+            this.nextElementSibling.innerHTML = '长度不能多于40位';
+            this.nextElementSibling.className = 'msg-error';
+            this.setCustomValidity('长度不能多于40位');
+        }
+        else {
             this.nextElementSibling.innerHTML = '密码格式正确';
             this.nextElementSibling.className = 'msg-success';
             this.setCustomValidity('');
         }
     });
-    $('#password').focus(function () {
-        this.nextElementSibling.innerHTML = '密码长度在6到12位之间';
+    $('#passwords').focus(function () {
+        this.nextElementSibling.innerHTML = '长度在8到40位之间';
         this.nextElementSibling.className = 'msg-default';
     });
+
     /*3.对邮箱地址进行验证*/
-    $('#otherEmail').blur(function () {
+    $('#birthday').blur(function () {
         if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '邮箱不能为空';
+            this.nextElementSibling.innerHTML = '出生日期不能为空';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('邮箱不能为空');
+            this.setCustomValidity('出生日期不能为空');
         } else if (this.validity.typeMismatch) {
-            this.nextElementSibling.innerHTML = '邮箱格式不正确';
+            this.nextElementSibling.innerHTML = '格式不正确';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('邮箱格式不正确');
+            this.setCustomValidity('格式不正确');
         } else {
-            this.nextElementSibling.innerHTML = '邮箱格式正确';
+            this.nextElementSibling.innerHTML = '格式正确';
             this.nextElementSibling.className = 'msg-success';
             this.setCustomValidity('');
             //  var data =document.getElementById("email").value;
-            var data = $("#otherEmail").val();
+            var data = $("#birthday").val();
             if (!data) {   //用户没有输入任何内容
                 return;
             }
         }
     });
-    $('#otherEmail').focus(function () {
-        this.nextElementSibling.innerHTML = '请输入合法的邮箱地址';
-        this.nextElementSibling.className = 'msg-default';
-    });
-
-    $('#qq').blur(function () {
-        if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = 'QQ不能为空';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('QQ不能为空');
-        } else if (this.validity.tooShort) {
-            this.nextElementSibling.innerHTML = 'QQ长度在8到11位之间';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('QQ长度不少于8位');
-        } else {
-            this.nextElementSibling.innerHTML = 'QQ格式正确';
-            this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
-        }
-    });
-    $('#qq').focus(function () {
-        this.nextElementSibling.innerHTML = 'QQ长度在8到11位之间';
-        this.nextElementSibling.className = 'msg-default';
-    });
-
-    $('#companyEmail').blur(function () {
-        if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '邮箱不能为空';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('邮箱不能为空');
-        } else if (this.validity.typeMismatch) {
-            this.nextElementSibling.innerHTML = '邮箱格式不正确';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('邮箱格式不正确');
-        } else {
-            this.nextElementSibling.innerHTML = '邮箱格式正确';
-            this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
-            //  var data =document.getElementById("email").value;
-            var data = $("#companyEmail").val();
-            if (!data) {   //用户没有输入任何内容
-                return;
-            }
-        }
-    });
-    $('#companyEmail').focus(function () {
-        this.nextElementSibling.innerHTML = '请输入合法的邮箱地址';
+    $('#birthday').focus(function () {
+        this.nextElementSibling.innerHTML = '出生日期不能为空';
         this.nextElementSibling.className = 'msg-default';
     });
 
@@ -493,11 +408,11 @@
             this.nextElementSibling.className = 'msg-error';
             this.setCustomValidity('手机号不能为空');
         } else if (this.validity.patternMismatch) {
-            this.nextElementSibling.innerHTML = '手机号格式不正确';
+            this.nextElementSibling.innerHTML = '格式不正确';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('手机号格式不正确');
+            this.setCustomValidity('格式不正确');
         } else {
-            this.nextElementSibling.innerHTML = '手机号格式正确';
+            this.nextElementSibling.innerHTML = '格式正确';
             this.nextElementSibling.className = 'msg-success';
             this.setCustomValidity('');
             //  var data =document.getElementById("email").value;
@@ -508,34 +423,10 @@
         }
     });
     $('#phone').focus(function () {
-        this.nextElementSibling.innerHTML = '请输入合法的手机号';
+        this.nextElementSibling.innerHTML = '手机号不能为空';
         this.nextElementSibling.className = 'msg-default';
     });
 
-    $('#hardPhone').blur(function () {
-        if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '手机号不能为空';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('手机号不能为空');
-        } else if (this.validity.patternMismatch) {
-            this.nextElementSibling.innerHTML = '手机号格式不正确';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('手机号格式不正确');
-        } else {
-            this.nextElementSibling.innerHTML = '手机号格式正确';
-            this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
-            //  var data =document.getElementById("email").value;
-            var data = $("#hardPhone").val();
-            if (!data) {   //用户没有输入任何内容
-                return;
-            }
-        }
-    });
-    $('#hardPhone').focus(function () {
-        this.nextElementSibling.innerHTML = '请输入合法的手机号';
-        this.nextElementSibling.className = 'msg-default';
-    });
 </script>
 
 </body>

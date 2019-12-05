@@ -14,7 +14,7 @@ public interface AdminBaseMapper {
     int intsertChecker(User user);
     int updataChecker(User user);
     int deleteChecker(User user);
-    List<User> queryCheckerAll();
+    List<User> queryCheckerAll(User user);
 
     int insertTrade(Trade trade);
     int updataTrade(Trade trade);

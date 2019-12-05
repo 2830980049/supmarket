@@ -52,39 +52,39 @@
         delete from goods_records where goods_second_id=#{goods_second_id}
     </delete>
 
-    <resultMap type="com.edu.Pojo.Checker" id="Checker">
-        <result property="checker_account" column="checker_account"></result>
-        <result property="checker_name" column="checker_name"></result>
-        <result property="checker_password" column="checker_password"></result>
-        <result property="checker_sex" column="checker_sex"></result>
-        <result property="checker_birthday" column="checker_birthday"></result>
-        <result property="checker_phone" column="checker_phone"></result>
-        <result property="position" column="position"></result>
+    <resultMap type="com.edu.Pojo.User" id="Checker">
+        <result property="account" column="account"></result>
+        <result property="username" column="username"></result>
+        <result property="passwords" column="passwords"></result>
+        <result property="sex" column="sex"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="phone" column="phone"></result>
+        <result property="positions" column="positions"></result>
     </resultMap>
 
     <select id="queryChecker" resultMap="Checker">
         select * from user
         <where>
-            <if test="checker_account!=null and checker_account!=''">
-                and checker_account=#{checker_account}
+            <if test="account!=null and account!=''">
+                and account=#{account}
             </if>
-            <if test="checker_name!=null and checker_name!=''">
-                and checker_name=#{checker_name}
+            <if test="username!=null and username!=''">
+                and username=#{username}
             </if>
-            <if test="checker_password!=null and checker_password!=''">
-                and checker_password=#{checker_password}
+            <if test="passwords!=null and passwords!=''">
+                and passwords=#{passwords}
             </if>
-            <if test="checker_sex!=null and checker_sex!=''">
-                and checker_sex=#{checker_sex}
+            <if test="sex!=null and sex!=''">
+                and sex=#{sex}
             </if>
-            <if test="checker_birthday!=null">
-                and checker_birthday=#{checker_birthday}
+            <if test="birthday!=null">
+                and birthday=#{birthday}
             </if>
-            <if test="checker_phone!=null">
-                and checker_phone=#{checker_phone}
+            <if test="phone!=null">
+                and phone=#{phone}
             </if>
-            <if test="position!=null and position!=''">
-                and position=#{position}
+            <if test="positions!=null and positions!=''">
+                and positions=#{position}
             </if>
         </where>
     </select>

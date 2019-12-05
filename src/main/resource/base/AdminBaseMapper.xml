@@ -12,8 +12,8 @@
             <if test="username != null and username != ''">
                 username,
             </if>
-            <if test="password != null and password != ''">
-                password,
+            <if test="passwords != null and passwords != ''">
+                passwords,
             </if>
             <if test="sex != null and sex != ''">
                 sex,
@@ -24,7 +24,7 @@
             <if test="phone != null and phone != ''">
                 phone,
             </if>
-            <if test="positions != null and positions != ''">
+            <if test="positions != null">
                 positions,
             </if>
         </trim>
@@ -37,8 +37,8 @@
             <if test="username != null and username != ''">
                 #{username},
             </if>
-            <if test="password != null and password != ''">
-                #{password},
+            <if test="passwords != null and passwords != ''">
+                #{passwords},
             </if>
             <if test="sex != null and sex != ''">
                 #{sex},
@@ -49,7 +49,7 @@
             <if test="phone != null and phone != ''">
                 #{phone},
             </if>
-            <if test="positions != null and positions != ''">
+            <if test="positions != null">
                 #{positions},
             </if>
         </trim>
@@ -69,12 +69,8 @@
             <if test="trade_type != null and trade_type != ''">
                 trade_type,
             </if>
-            <if test="trade_value != null">
                 trade_value,
-            </if>
-            <if test="trade_number != null">
                 trade_number,
-            </if>
         </trim>
         )
         values (
@@ -85,14 +81,11 @@
             <if test="trade_name != null and trade_name != ''">
                 #{trade_name},
             </if>
-            <if test="trade_value != null">
-                #{trade_value},
-            </if>
+            #{trade_value},
             <if test="trade_type != null and trade_type != ''">
                 #{trade_type},
             </if>
-            <if test="trade_number != null">
-                #{trade_number},
+            #{trade_number},
         </trim>
         )
     </insert>
@@ -104,8 +97,8 @@
             <if test="username != null and username != ''">
                 username =  #{username},
             </if>
-            <if test="password != null and password != ''">
-                password = #{password},
+            <if test="passwords != null and passwords != ''">
+                passwords = #{passwords},
             </if>
             <if test="sex != null and sex != ''">
                 sex = #{sex},
@@ -153,7 +146,7 @@
     <resultMap type="com.edu.Pojo.User" id="User">
         <result property="account" column="account"></result>
         <result property="username" column="username"></result>
-        <result property="password" column="password"></result>
+        <result property="passwords" column="passwords"></result>
         <result property="sex" column="sex"></result>
         <result property="birthday" column="birthday"></result>
         <result property="phone" column="phone"></result>
@@ -177,8 +170,8 @@
             <if test="username!=null and username!=''">
                 and username=#{username}
             </if>
-            <if test="password!=null and password!=''">
-                and password=#{password}
+            <if test="passwords!=null and passwords!=''">
+                and passwords=#{passwords}
             </if>
             <if test="sex!=null and sex!=''">
                 and sex=#{sex}
@@ -196,7 +189,7 @@
     </select>
 
     <select id="queryTradeAll" resultMap="Trade">
-        select * from user
+        select * from trade
         <where>
             <if test="trade_id!=null and trade_id!=''">
                 and trade_id=#{trade_id}

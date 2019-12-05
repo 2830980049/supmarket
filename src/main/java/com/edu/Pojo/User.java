@@ -10,11 +10,11 @@ import java.util.Date;
 public class User {
     private String account;    //帐户
     private String username;   //姓名
-    private String password;   //密码
+    private String passwords;   //密码
     private String sex;        //性别
     private Date birthday;     //出生日期
     private String phone;      //电话
-    private String positions;  //职位
+    private Integer positions;  //职位
 
     public String getAccount() {
         return account;
@@ -32,12 +32,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswords() {
+        return passwords;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswords(String passwords) {
+        this.passwords = passwords;
     }
 
     public String getSex() {
@@ -64,11 +64,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getPositions() {
+    public Integer getPositions() {
         return positions;
     }
 
-    public void setPositions(String positions) {
+    public void setPositions(Integer positions) {
         this.positions = positions;
     }
 
@@ -77,7 +77,7 @@ public class User {
         return "User{" +
                 "account='" + account + '\'' +
                 ", name='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + passwords + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birthday=" + birthday +
                 ", phone='" + phone + '\'' +

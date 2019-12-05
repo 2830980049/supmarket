@@ -28,7 +28,7 @@
     <!-- 象形异体字 -->
     <link href="<%=ctxPath%>/src/res/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- 主题风格 -->
-    <link href="<%=ctxPath%>/src/res/css/AdminLLKXL.min.css" rel="stylesheet">
+    <link href="<%=ctxPath%>/src/res/css/Admin.min.css" rel="stylesheet">
     <!-- 皮肤 -->
     <link href="<%=ctxPath%>/src/res/css/_all-skins.min.css" rel="stylesheet">
     <!--谷歌字体 -->
@@ -155,14 +155,14 @@
                     <!-- 用户帐号:风格可以在dropdown.less中找到 -->
                     <li class="dropdown user user-menu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="hidden-xs">苏酒儿 VS 苏苏</span>
+                            <span class="hidden-xs">噬魂</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <br>
                                 <br>
                                 <p>
-                                    苏酒儿 VS 苏苏 - web开发人员
+                                    启立 - web开发人员
                                     <small>2019.12.4</small>
                                 </p>
                             </li>
@@ -180,9 +180,9 @@
             <!-- 侧边栏用户面板 -->
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/admin/admin">所有员工</a></li>
+                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
                     <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
-                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/querystaffs.do">添加员工</a></li>
+                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
                     <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/admin/admin">添加商品</a></li>
                 </ul>
             </div>
@@ -201,7 +201,7 @@
     <!-- /.主要内容 -->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 3.0.0
+            <b>Version</b> 1.0.0
         </div>
         <strong>CRAETE TO 2019.12.4 Admin WUQILI.</strong> 保留所有权
     </footer>

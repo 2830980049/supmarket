@@ -27,16 +27,21 @@ public class IndexController {
         return new ModelAndView("login");
     }
 
+    @RequestMapping(value = "/queryStaffs.do",method = RequestMethod.GET)
+    public ModelAndView queryStaffs(){
+        return new ModelAndView("Admin/AllStaff");
+    }
+
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public ModelAndView loginSubmit(@RequestParam String loginname, @RequestParam String password, HttpServletRequest request){
         User user = new User();
-        user.setChecker_account(loginname);
-        user.setChecker_password(password);
+        user.setAccount(loginname);
+        user.setPasswords(password);
         user = checkerService.selectOne(user);
         System.out.println(user);
         if(user != null){
             request.getSession().setAttribute("user", user);
-            switch (user.getPosition()){
+            switch (user.getPositions().toString()){
                 case "0":
                     return new ModelAndView("Admin/Start");
 
