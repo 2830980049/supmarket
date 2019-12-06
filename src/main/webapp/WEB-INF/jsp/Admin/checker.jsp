@@ -116,6 +116,17 @@
 </script>
 <%}%>
 
+<% if (flag == "4") {%>
+<script>
+    alert("修改成功！");
+</script>
+<%}%>
+<%
+    if (flag == "5") {%>
+<script>
+    alert("修改失败！");
+</script>
+<%}%>
 
 
 <div class="wrapper">
@@ -163,7 +174,7 @@
             <!-- 侧边栏用户面板 -->
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/Admin/admin">所有员工</a></li>
+                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
                     <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
                     <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/admin/admin">添加商品</a></li>
                 </ul>
@@ -190,7 +201,7 @@
                             <tr>
                                 <td class="form-group"><label>帐号</label></td>
                                 <td class="form-group">
-                                    <input autocomplete required minlength="1" maxlength="20" class="form-control" type="text" autofocus id="account" name="account" >
+                                    <input autocomplete required minlength="1" maxlength="20" class="form-control" type="text" autofocus id="account" name="account" value="${account}">
                                     <span class="msg-default"></span>
                                 </td>
                                 <td class="form-group"><label>密码</label></td>
@@ -234,6 +245,11 @@
                                         <option>管理员</option>
                                         <option>收银员</option>
                                     </select>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input hidden id="check" name="check">
+                                    <span class="msg-default hidden"></span>
                                 </td>
                             </tr>
                         </table>
@@ -281,6 +297,30 @@
     }
 </script>
 
+<% if (flag == "3") {%>
+<script>
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    $('#account').prop('readonly',true);
+    $('#account').blur(function () {
+            var checks = document.getElementById("check");
+            checks.value = "0";
+            //获取输入框中的值
+            var u = document.getElementById("account");
+            //处理回调函数
+            var msg = xmlhttp.responseText;
+            u.nextElementSibling.innerHTML = '帐号可用';
+            u.nextElementSibling.className = 'msg-success';
+    });
+</script>
+<%}%>
+
+<%
+    if (flag != "3") {%>
 <script>
     //1.获取AJAX对象
     var xmlhttp = null;
@@ -289,9 +329,10 @@
     } else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-
     /*1.对用户名进行验证*/
     $('#account').blur(function () {
+        var checks = document.getElementById("check");
+        checks.value = "1";
         if (this.validity.valueMissing) {
             this.nextElementSibling.innerHTML = '帐号不能为空';
             this.nextElementSibling.className = 'msg-error';
@@ -325,7 +366,10 @@
         this.nextElementSibling.innerHTML = '长度10位之间';
         this.nextElementSibling.className = 'msg-default';
     });
+</script>
+    <% }%>
 
+    <script>
     $('#username').blur(function () {
         if (this.validity.valueMissing) {
             this.nextElementSibling.innerHTML = '姓名不能为空';
@@ -340,7 +384,7 @@
         else {
             this.nextElementSibling.innerHTML = '姓名格式正确';
             this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
+            this.setCustomValidity('姓名格式正确');
         }
     });
     $('#username').focus(function () {
@@ -428,7 +472,6 @@
     });
 
 </script>
-
 </body>
 
 </html>

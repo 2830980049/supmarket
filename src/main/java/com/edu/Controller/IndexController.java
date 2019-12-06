@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Wuqili
@@ -28,8 +29,11 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/queryStaffs.do",method = RequestMethod.GET)
-    public ModelAndView queryStaffs(){
-        return new ModelAndView("Admin/AllStaff");
+    public ModelAndView queryStaffs(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView("Admin/AllStaff");
+        System.out.println("flag = " + (String)request.getAttribute("flag"));
+        mav.addObject("flag",(String)request.getAttribute("flag"));
+        return mav;
     }
 
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)

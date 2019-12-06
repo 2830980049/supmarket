@@ -20,4 +20,6 @@ public interface AdminBaseMapper {
     int updataTrade(Trade trade);
     int deleteTrade(Trade trade);
     List<Trade>queryTradeAll();
+
+    List<String>queryTrade_TypeAll();
 }

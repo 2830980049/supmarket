@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 /**
  * @author Wuqili
@@ -33,27 +38,68 @@ public class AdminController {
         return new ModelAndView("Admin/checker");
     }
 
+    @RequestMapping(value = "/update.do",method = RequestMethod.GET)
+    public ModelAndView updates(@RequestParam String account){
+        ModelAndView mav = new ModelAndView("Admin/checker");
+        mav.addObject("flag","3");
+        mav.addObject("account",account);
+        return  mav;
+    }
+
+    @RequestMapping(value = "delete.do",method = RequestMethod.GET)
+    public void deletes(@RequestParam String account, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        User user = new User();
+        user.setAccount(account);
+        boolean flags = adminService.deletes(user);
+        String url = request.getContextPath()+"/queryStaff.do";
+        System.out.println(url);
+        //ModelAndView mav = new ModelAndView(url);
+        if(flags)
+            request.setAttribute("flag", "4");
+            //request.setAttribute("flag", "4");
+            //mav.addObject("flag","4");
+        else
+            request.setAttribute("flag", "-4");
+            //request.setAttribute("flag", "-4");
+            //mav.addObject("flag","-4");
+        request.getRequestDispatcher("/queryStaff.do").forward(request,response);
+        //response.sendRedirect(url);
+        //request.getRequestDispatcher(url).forward(request, response);
+    }
+
     @RequestMapping(value = "/addchecker.do",method = RequestMethod.GET)
     public ModelAndView addchecker(){
-        return new ModelAndView("Admin/checker");
+        ModelAndView mav = new ModelAndView("Admin/checker");
+        mav.addObject("account","");
+        return mav;
+    }
+
+    @RequestMapping(value = "/addtrade.do",method = RequestMethod.GET)
+    public ModelAndView addtrade(){
+        List<String> type = adminService.queryTypeAll();
+        ModelAndView mav = new ModelAndView("Admin/trade");
+        for(String s:type)
+            System.out.println(s);
+        mav.addObject("list",type);
+        return mav;
+    }
+
+    @RequestMapping(value = "/addtrade.do",method = RequestMethod.POST)
+    public ModelAndView addtrades(@RequestParam String trade_id, @RequestParam String trade_name, @RequestParam String trade_type,
+                                  @RequestParam String trade_value, @RequestParam String trade_number, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView();
+        return  mav;
     }
 
     @RequestMapping(value = "/addchecker.do",method = RequestMethod.POST)
     public ModelAndView addcheckers(@RequestParam String account, @RequestParam String passwords, @RequestParam String username,
                                     @RequestParam String sex, @RequestParam String birthday, @RequestParam String phone,
-                                    @RequestParam String positions, HttpServletRequest request, HttpServletResponse response){
+                                    @RequestParam String positions,@RequestParam String check, HttpServletRequest request, HttpServletResponse response){
         User user = new User();
         user.setAccount(account);
         user.setSex(sex);
         user.setPhone(phone);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date = sdf.parse(birthday);
-            user.setBirthday(date);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        user.setBirthday(Date.valueOf(birthday));
         user.setUsername(username);
         user.setPasswords(passwords);
         if(positions.equals("管理员"))
@@ -61,16 +107,26 @@ public class AdminController {
         else
             user.setPositions(1);
         System.out.println(user);
-        boolean m  = adminService.AddChecker(user);
+        boolean m = false;
+        System.out.println(check);
         ModelAndView mav = new ModelAndView("Admin/checker");
-        if(m){
-            mav.addObject("flag","1");
-            return  mav;
+        if(check.equals("1")) {
+            m = adminService.AddChecker(user);
+            System.out.println("check m ="+m);
+            if(m)
+                mav.addObject("flag","1");
+            else
+                mav.addObject("flag","2");
         }
-        else{
-            mav.addObject("flag","2");
-            return mav;
+        else if(check.equals("0")){
+            m = adminService.updatasType(user);
+            System.out.println("check m = "+m);
+            if (m)
+                mav.addObject("flag", "4");
+             else
+                mav.addObject("flag", "5");
         }
+        return  mav;
     }
 
 }

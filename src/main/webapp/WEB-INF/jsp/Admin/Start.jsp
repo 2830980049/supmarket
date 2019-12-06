@@ -183,7 +183,7 @@
                     <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
                     <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
                     <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
-                    <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/admin/admin">添加商品</a></li>
+                    <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/Admin/addtrade.do">添加商品</a></li>
                 </ul>
             </div>
             <!-- 侧栏菜单::style可以在sidebar.less中找到-->

@@ -208,5 +208,9 @@
             </if>
         </where>
     </select>
+    
+    <select id="queryTrade_TypeAll" parameterType="String" resultType="String">
+        select * from trade_type;
+    </select>
 
 </mapper>

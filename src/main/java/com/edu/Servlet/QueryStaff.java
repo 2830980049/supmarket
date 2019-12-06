@@ -40,7 +40,15 @@ public class QueryStaff extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<User> list = adminService.queryStaffs();
-        session.setAttribute("list",list);
-        resp.sendRedirect(req.getContextPath()+"/queryStaffs.do");
+        try {
+            session.setAttribute("flag", (String) req.getAttribute("flag"));
+            session.setAttribute("list", list);
+        }
+        catch (Exception e){
+
+        }
+        System.out.println("flag = "+(String) req.getAttribute("flag"));
+        req.getRequestDispatcher("/queryStaffs.do").forward(req,resp);
+        //resp.sendRedirect(req.getContextPath()+"/queryStaffs.do");
     }
 }

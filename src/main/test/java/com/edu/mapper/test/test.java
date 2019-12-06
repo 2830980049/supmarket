@@ -78,11 +78,11 @@ public class test {
     @Test
     public void Checkss() {
         //5 使用代理对象执行方法
-        List<Trade> trade = null;
+        List<String> user = null;
         //执行保存方法
-        trade = adminBaseMapper.queryTradeAll();
-        for(Trade user1 : trade)
-            System.out.println(user1);
+        user = adminBaseMapper.queryTrade_TypeAll();
+        for (String s:user)
+            System.out.println(s);
     }
 
 }

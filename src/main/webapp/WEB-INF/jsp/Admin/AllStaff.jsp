@@ -101,6 +101,20 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+<%
+    String flag = (String) request.getAttribute("flag");
+%>
+<% if(flag == "4"){%>
+    <script>
+        alert("删除成功");
+    </script>
+<% }%>
+
+<% if(flag == "-4"){%>
+<script>
+    alert("删除失败");
+</script>
+<% }%>
 
 <div class="wrapper">
     <header class="main-header">
@@ -109,7 +123,7 @@
             <!-- 迷你标志为侧栏迷你50x50像素 -->
             <span class="logo-mini"><b>L</b>B</span>
             <!-- 常规状态和移动设备的徽标 -->
-            <span class="logo-lg">LLKXL智能制造系统</span>
+            <span class="logo-lg">启立智能超市系统</span>
         </a>
         <!-- 标题导航栏:样式可以在Header .less中找到 -->
         <nav class="navbar navbar-static-top">
@@ -122,15 +136,15 @@
                     <!-- 用户帐号:风格可以在dropdown.less中找到 -->
                     <li class="dropdown user user-menu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="hidden-xs">琳琳开心力</span>
+                            <span class="hidden-xs">噬魂</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <br>
                                 <br>
                                 <p>
-                                    琳琳开心力 - web开发人员
-                                    <small>2019.11.1</small>
+                                    启立 - web开发人员
+                                    <small>2019.12.4</small>
                                 </p>
                             </li>
                         </ul>
@@ -147,7 +161,12 @@
             <!-- 侧边栏用户面板 -->
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/admin/admin">添加用户</a></li>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
+                        <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
+                        <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
+                        <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/admin/admin">添加商品</a></li>
+                    </ul>
                 </ul>
             </div>
             <!-- 侧栏菜单::style可以在sidebar.less中找到-->
@@ -172,14 +191,14 @@
                     <table id="my_order" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>帐户</th>
-                            <th>姓名</th>
-                            <th>密码</th>
-                            <th>性别</th>
-                            <th>出生日期</th>
-                            <th>电话</th>
-                            <th>职位</th>
-                            <th>功能</th>
+                            <th style="text-align: center">帐户</th>
+                            <th style="text-align: center">姓名</th>
+                            <th style="text-align: center">密码</th>
+                            <th style="text-align: center">性别</th>
+                            <th style="text-align: center">出生日期</th>
+                            <th style="text-align: center">电话</th>
+                            <th style="text-align: center">职位</th>
+                            <th style="text-align: center">功能</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -206,9 +225,9 @@
     <!-- /.主要内容 -->
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 3.0.0
+            <b>Version</b> 1.0.0
         </div>
-        <strong>CRAETE TO 2019.11.1AdminLLKXL.</strong> 保留所有权
+        <strong>CRAETE TO 2019.12.4 Admin WUQILI.</strong> 保留所有权
     </footer>
     <script type="text/javascript">
     </script>
@@ -223,13 +242,13 @@
 <script>
     function sub(st) {
         var account = st;
-        window.location.href = "<%=ctxPath%>/admin/updatas?account="+account;
+        window.location.href = "<%=ctxPath%>/Admin/update.do?account="+account;
     }
     function subs(st) {
-        var loginName = st;
+        var account = st;
         var result = window.confirm("您确定删除该员工信息?");
         if (result) {
-            window.location.href = "<%=ctxPath%>/admin/deletes?loginName="+account;
+            window.location.href = "<%=ctxPath%>/Admin/delete.do?account="+account;
         }
     }
 </script>

@@ -42,4 +42,24 @@ public class AdminService {
         return users;
     }
 
+    public boolean deletes(User user){
+        int m = adminBaseMapper.deleteChecker(user);
+        if(m > 0)
+            return true;
+        return false;
+    }
+
+    public List<String> queryTypeAll(){
+        List<String> list = null;
+        list = adminBaseMapper.queryTrade_TypeAll();
+        return list;
+    }
+
+    public boolean updatasType(User user){
+        int m = adminBaseMapper.updataChecker(user);
+        if(m > 0)
+            return true;
+        return false;
+    }
+
 }
