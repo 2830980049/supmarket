@@ -1,6 +1,7 @@
 package com.edu.Service;
 
 import com.edu.Mapper.base.AdminBaseMapper;
+import com.edu.Pojo.Trade;
 import com.edu.Pojo.User;
 import org.aspectj.weaver.Checker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +50,8 @@ public class AdminService {
         return false;
     }
 
-    public List<String> queryTypeAll(){
-        List<String> list = null;
+    public List<Trade> queryTypeAll(){
+        List<Trade> list = null;
         list = adminBaseMapper.queryTrade_TypeAll();
         return list;
     }
@@ -60,6 +61,11 @@ public class AdminService {
         if(m > 0)
             return true;
         return false;
+    }
+
+    public List<Trade> queryAll(){
+        List<Trade> list = adminBaseMapper.queryTradeAll();
+        return list;
     }
 
 }

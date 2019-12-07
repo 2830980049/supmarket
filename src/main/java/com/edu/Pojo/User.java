@@ -1,5 +1,6 @@
 package com.edu.Pojo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +16,11 @@ public class User {
     private Date birthday;     //出生日期
     private String phone;      //电话
     private Integer positions;  //职位
+
+    public String formateTime(Date date) {
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(date);
+    }
 
     public String getAccount() {
         return account;

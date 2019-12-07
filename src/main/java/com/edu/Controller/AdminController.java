@@ -1,5 +1,6 @@
 package com.edu.Controller;
 
+import com.edu.Pojo.Trade;
 import com.edu.Pojo.User;
 import com.edu.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -20,7 +22,10 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Wuqili
@@ -74,11 +79,27 @@ public class AdminController {
         return mav;
     }
 
+    @RequestMapping("/query_id")
+    public @ResponseBody Map<String,Object> queryAll(String trade_type) throws Exception{
+        Map<String,Object> map = new HashMap<String,Object>();
+        Trade trade = new Trade();
+        trade.setTrade_type(trade_type);
+        List<Trade> trades = null;
+        List list1 = null;
+        list1 = new ArrayList();
+        trades = adminService.queryAll();
+        Map<String,String> taskMaps = new HashMap<String,String>();
+        taskMaps.put("trade_id",trades.get(0).getTrade_type_id());
+        list1.add(taskMaps);
+        map.put("tasks",list1);
+        return map;
+    }
+
     @RequestMapping(value = "/addtrade.do",method = RequestMethod.GET)
     public ModelAndView addtrade(){
-        List<String> type = adminService.queryTypeAll();
+        List<Trade> type = adminService.queryTypeAll();
         ModelAndView mav = new ModelAndView("Admin/trade");
-        for(String s:type)
+        for(Trade s:type)
             System.out.println(s);
         mav.addObject("list",type);
         return mav;

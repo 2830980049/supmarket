@@ -159,6 +159,7 @@
         <result property="trade_type" column="trade_type"></result>
         <result property="trade_value" column="trade_value"></result>
         <result property="trade_number" column="trade_number"></result>
+        <result property="trade_type_id" column="trade_type_id"></result>
     </resultMap>
 
     <select id="queryCheckerAll" resultMap="User">
@@ -209,7 +210,7 @@
         </where>
     </select>
     
-    <select id="queryTrade_TypeAll" parameterType="String" resultType="String">
+    <select id="queryTrade_TypeAll" resultMap="Trade">
         select * from trade_type;
     </select>
 

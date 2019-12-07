@@ -208,9 +208,16 @@
                                 <td>${staff.username}</td>
                                 <td>${staff.passwords}</td>
                                 <td>${staff.sex}</td>
-                                <td>${staff.birthday}</td>
+                                <td>${staff.formateTime(staff.birthday)}</td>
                                 <td>${staff.phone}</td>
-                                <td>${staff.positions}</td>
+                                <td>
+                                    <c:if test="${staff.positions == 0}" >
+                                        管理员
+                                    </c:if>
+                                    <c:if test="${staff.positions == 1}" >
+                                        收银员
+                                    </c:if>
+                                </td>
                                 <td><a href="#" onclick="sub(${staff.account});" style="color: #606c84;font-weight: bold">编辑</a> <a href="#" onclick="subs(${staff.account});" style="color: crimson;font-weight: bold">删除</a></td>
                             </tr>
                         </c:forEach>

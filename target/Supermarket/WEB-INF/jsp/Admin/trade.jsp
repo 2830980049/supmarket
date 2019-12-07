@@ -187,6 +187,22 @@
                 <form form-control>
                     <table class="table  table-condensed table-responsive">
                         <tr>
+                            <td class="form-group"><label>商品类型</label></td>
+                            <td class="form-group">
+                                <select class="form-control" id="trade_type" name="trade_type" onchange="changeNum()">
+                                    <c:forEach items="${list}" var="trade">
+                                        <option>请选择</option>
+                                        <option value="${trade.trade_type}"> ${trade.trade_type}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+                            <td>商品类型编号</td>
+                            <td class="form-group">
+                                <input autocomplete required minlength="1" maxlength="20" class="form-control" type="text" autofocus id="trade_type_id" name="trade_type_id" value="${trade_type_id}" readonly>
+                                <span class="msg-default"></span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="form-group"><label>商品编号</label></td>
                             <td class="form-group">
                                 <input autocomplete required minlength="1" maxlength="20" class="form-control" type="text" autofocus id="trade_id" name="trade_id" value="${trade_id}">
@@ -199,25 +215,21 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="form-group"><label>商品类型</label></td>
-                            <td class="form-group">
-                                <select class="form-control" id="trade_type" name="trade_type">
-                                    <c:forEach items="${list}" var="lc">
-                                        <option value="${lc}"> ${lc}</option>
-                                    </c:forEach>
-                                </select>
-                            </td>
                             <td class="form-group"><label>商品价格</label></td>
                             <td class="form-group">
                                 <input required type="text" class="form-control" minlength="1" maxlength="20" autofocus id="trade_value" name="trade_value">
                                 <span class="msg-default hidden">价格为空</span>
                             </td>
-                        </tr>
-                        <tr>
                             <td class="form-group"><label>商品数量</label></td>
                             <td class="form-group">
                                 <input class="form-control" id="trade_number" name="trade_number" required type="text">
                                 <span class="msg-default hidden">手机号不合法</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="form-control" id="check" name="check" required type="text" hidden>
+                                <span class="msg-default hidden"></span>
                             </td>
                         </tr>
                     </table>
@@ -271,6 +283,36 @@
     $('#account').prop('readonly',true);
 </script>
 <%}%>
+
+<script>
+    function changeNum(){
+        var trade_type = document.getElementById("trade_type").value
+        $.ajax({
+            type:'POST',
+            dataType:'text',
+            url:'<%=ctxPath%>/Admin/query_id',
+            data:{
+                trade_type : trade_type
+            },
+
+            success:function(data){
+                var secondCategoryObj = document.getElementById("trade_type_id");
+                secondCategoryObj.innerHTML = "<option value=''>请选择</option>";
+                //解析json为数组
+                var data = eval("("+data+")");
+                var dataList = data.tasks;
+                if (dataList!= null) { //如果没有这一步，js会报length null之类的
+                        var MObj = dataList[0];
+                        var trade_id = MObj.trade_id;
+                        //进行添加到标签里
+                        var value = document.getElementById("trade_type_id");
+                        value.value = trade_id;
+                        secondCategoryObj.innerHTML = secondCategoryObj.innerHTML + "<option value='" + trade_id + "'>" + trade_id + "</option>";
+                }
+            }
+        });
+    }
+</script>
 
 <%
     if (flag != "3") {%>

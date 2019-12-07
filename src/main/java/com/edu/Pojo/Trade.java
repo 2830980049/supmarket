@@ -6,6 +6,7 @@ package com.edu.Pojo;
  * @date 2019/12/4 12:25
  */
 public class Trade {
+    private String trade_type_id;//商品类型编号
     private String trade_id;     //商品编号
     private String trade_name;   //商品名称
     private String trade_type;   //商品类型
@@ -14,6 +15,14 @@ public class Trade {
 
     public String getTrade_id() {
         return trade_id;
+    }
+
+    public String getTrade_type_id() {
+        return trade_type_id;
+    }
+
+    public void setTrade_type_id(String trade_type_id) {
+        this.trade_type_id = trade_type_id;
     }
 
     public void setTrade_id(String trade_id) {
@@ -55,10 +64,11 @@ public class Trade {
     @Override
     public String toString() {
         return "Trade{" +
-                "trade_id='" + trade_id + '\'' +
+                "trade_type_id='" + trade_type_id + '\'' +
+                ", trade_id='" + trade_id + '\'' +
                 ", trade_name='" + trade_name + '\'' +
                 ", trade_type='" + trade_type + '\'' +
-                ", trade_value=" + trade_value +
+                ", trade_value='" + trade_value + '\'' +
                 ", trade_number=" + trade_number +
                 '}';
     }
