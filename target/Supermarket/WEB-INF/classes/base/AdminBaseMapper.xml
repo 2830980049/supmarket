@@ -211,7 +211,15 @@
     </select>
     
     <select id="queryTrade_TypeAll" resultMap="Trade">
-        select * from trade_type;
+        select * from trade_type
+        <where>
+            <if test="trade_type!=null and trade_type!=''">
+                and trade_type=#{trade_type}
+            </if>
+            <if test="trade_type_id!=null and trade_type_id!=''">
+                and trade_type_id=#{trade_type_id}
+            </if>
+        </where>
     </select>
 
 </mapper>

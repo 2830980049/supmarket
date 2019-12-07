@@ -50,9 +50,9 @@ public class AdminService {
         return false;
     }
 
-    public List<Trade> queryTypeAll(){
+    public List<Trade> queryTypeAll(Trade trade){
         List<Trade> list = null;
-        list = adminBaseMapper.queryTrade_TypeAll();
+        list = adminBaseMapper.queryTrade_TypeAll(trade);
         return list;
     }
 

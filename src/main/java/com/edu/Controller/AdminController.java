@@ -87,7 +87,8 @@ public class AdminController {
         List<Trade> trades = null;
         List list1 = null;
         list1 = new ArrayList();
-        trades = adminService.queryAll();
+        trades = adminService.queryTypeAll(trade);
+        System.out.println(trades);
         Map<String,String> taskMaps = new HashMap<String,String>();
         taskMaps.put("trade_id",trades.get(0).getTrade_type_id());
         list1.add(taskMaps);
@@ -97,7 +98,7 @@ public class AdminController {
 
     @RequestMapping(value = "/addtrade.do",method = RequestMethod.GET)
     public ModelAndView addtrade(){
-        List<Trade> type = adminService.queryTypeAll();
+        List<Trade> type = adminService.queryTypeAll(null);
         ModelAndView mav = new ModelAndView("Admin/trade");
         for(Trade s:type)
             System.out.println(s);

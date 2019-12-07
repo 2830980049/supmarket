@@ -190,8 +190,8 @@
                             <td class="form-group"><label>商品类型</label></td>
                             <td class="form-group">
                                 <select class="form-control" id="trade_type" name="trade_type" onchange="changeNum()">
+                                    <option>请选择</option>
                                     <c:forEach items="${list}" var="trade">
-                                        <option>请选择</option>
                                         <option value="${trade.trade_type}"> ${trade.trade_type}</option>
                                     </c:forEach>
                                 </select>
@@ -223,12 +223,13 @@
                             <td class="form-group"><label>商品数量</label></td>
                             <td class="form-group">
                                 <input class="form-control" id="trade_number" name="trade_number" required type="text">
-                                <span class="msg-default hidden">手机号不合法</span>
+                                <span class="msg-default hidden"></span>
                             </td>
                         </tr>
                         <tr>
+                            <td></td>
                             <td>
-                                <input class="form-control" id="check" name="check" required type="text" hidden>
+                                <input hidden id="check" name="check">
                                 <span class="msg-default hidden"></span>
                             </td>
                         </tr>
@@ -296,8 +297,6 @@
             },
 
             success:function(data){
-                var secondCategoryObj = document.getElementById("trade_type_id");
-                secondCategoryObj.innerHTML = "<option value=''>请选择</option>";
                 //解析json为数组
                 var data = eval("("+data+")");
                 var dataList = data.tasks;
@@ -307,7 +306,6 @@
                         //进行添加到标签里
                         var value = document.getElementById("trade_type_id");
                         value.value = trade_id;
-                        secondCategoryObj.innerHTML = secondCategoryObj.innerHTML + "<option value='" + trade_id + "'>" + trade_id + "</option>";
                 }
             }
         });

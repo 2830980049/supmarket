@@ -21,5 +21,5 @@ public interface AdminBaseMapper {
     int deleteTrade(Trade trade);
     List<Trade>queryTradeAll();
 
-    List<Trade>queryTrade_TypeAll();
+    List<Trade>queryTrade_TypeAll(Trade trade);
 }
