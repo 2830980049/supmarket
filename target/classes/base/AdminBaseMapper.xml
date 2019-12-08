@@ -69,6 +69,9 @@
             <if test="trade_type != null and trade_type != ''">
                 trade_type,
             </if>
+            <if test="trade_type_id != null and trade_type_id != ''">
+                trade_type_id,
+            </if>
                 trade_value,
                 trade_number,
         </trim>
@@ -81,10 +84,13 @@
             <if test="trade_name != null and trade_name != ''">
                 #{trade_name},
             </if>
-            #{trade_value},
             <if test="trade_type != null and trade_type != ''">
                 #{trade_type},
             </if>
+            <if test="trade_type_id != null and trade_type_id != ''">
+                #{trade_type_id},
+            </if>
+            #{trade_value},
             #{trade_number},
         </trim>
         )
@@ -143,6 +149,10 @@
         delete from trade where trade_id=#{trade_id}
     </delete>
 
+    <delete id="deleteRecord">
+        delete from goods_records where goods_second_id=#{goods_second_id}
+    </delete>
+
     <resultMap type="com.edu.Pojo.User" id="User">
         <result property="account" column="account"></result>
         <result property="username" column="username"></result>
@@ -160,6 +170,17 @@
         <result property="trade_value" column="trade_value"></result>
         <result property="trade_number" column="trade_number"></result>
         <result property="trade_type_id" column="trade_type_id"></result>
+    </resultMap>
+
+    <resultMap type="com.edu.Pojo.Goods_records" id="Record">
+        <result property="goods_id" column="goods_id"></result>
+        <result property="goods_second_id" column="goods_second_id"></result>
+        <result property="trade_id" column="trade_id"></result>
+        <result property="trade_name" column="trade_name"></result>
+        <result property="trade_type" column="trade_type"></result>
+        <result property="trade_number" column="trade_number"></result>
+        <result property="discount_type" column="discount_type"></result>
+        <result property="status" column="status"></result>
     </resultMap>
 
     <select id="queryCheckerAll" resultMap="User">
@@ -220,6 +241,10 @@
                 and trade_type_id=#{trade_type_id}
             </if>
         </where>
+    </select>
+
+    <select id="queryRecord" resultMap="Record">
+        select * from goods_records
     </select>
 
 </mapper>

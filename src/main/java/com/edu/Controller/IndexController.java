@@ -36,6 +36,22 @@ public class IndexController {
         return mav;
     }
 
+    @RequestMapping(value = "/queryTrades.do",method = RequestMethod.GET)
+    public ModelAndView queryTrades(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView("Admin/AllTrade");
+        System.out.println("flag = " + (String)request.getAttribute("flag"));
+        mav.addObject("flag",(String)request.getAttribute("flag"));
+        return mav;
+    }
+
+    @RequestMapping(value = "/queryRecords.do",method = RequestMethod.GET)
+    public ModelAndView queryRecords(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView("Admin/records");
+        System.out.println("flag = " + (String)request.getAttribute("flag"));
+        mav.addObject("flag",(String)request.getAttribute("flag"));
+        return mav;
+    }
+
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public ModelAndView loginSubmit(@RequestParam String loginname, @RequestParam String password, HttpServletRequest request){
         User user = new User();

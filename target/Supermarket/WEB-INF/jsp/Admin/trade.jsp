@@ -110,9 +110,21 @@
 </script>
 <%}%>
 <%
-    if (flag == "2") {%>
+    if (flag == "0") {%>
 <script>
     alert("添加失败！");
+</script>
+<%}%>
+
+<% if (flag == "4") {%>
+<script>
+    alert("修改成功！");
+</script>
+<%}%>
+<%
+    if (flag == "5") {%>
+<script>
+    alert("修改失败！");
 </script>
 <%}%>
 
@@ -163,13 +175,12 @@
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
-                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
-                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
+                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryTrade.do">所有商品</a></li>
+                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/queryRecord.do">消费记录</a></li>
+                    <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
                 </ul>
             </div>
             <!-- 侧栏菜单::style可以在sidebar.less中找到-->
-
-
         </section>
         <!-- /.侧边栏描述 -->
     </aside>
@@ -181,7 +192,7 @@
             <h2 align="center">添加商品信息</h2>
         </section>
         <!-- 主要内容 -->
-        <form id="fm-register" action="<%=ctxPath%>/Admin/addchecker.do" class="content" method="post">
+        <form id="fm-register" action="<%=ctxPath%>/Admin/addtrade.do" class="content" method="post">
             <!--年度计划界面-->
             <div id="main-components">
                 <form form-control>
@@ -190,16 +201,23 @@
                             <td class="form-group"><label>商品类型</label></td>
                             <td class="form-group">
                                 <select class="form-control" id="trade_type" name="trade_type" onchange="changeNum()">
-                                    <option>请选择</option>
-                                    <c:forEach items="${list}" var="trade">
+                                    <%
+                                        if (flag != "3") {%>
+                                        <option>请选择</option>
+                                        <c:forEach items="${list}" var="trade">
                                         <option value="${trade.trade_type}"> ${trade.trade_type}</option>
-                                    </c:forEach>
+                                        </c:forEach>
+                                    <%}%>
+                                    <%
+                                        if (flag == "3") {%>
+                                            <option>${trade_type}</option>
+                                    <%}%>
                                 </select>
                             </td>
                             <td>商品类型编号</td>
                             <td class="form-group">
                                 <input autocomplete required minlength="1" maxlength="20" class="form-control" type="text" autofocus id="trade_type_id" name="trade_type_id" value="${trade_type_id}" readonly>
-                                <span class="msg-default"></span>
+                                <span class="msg-success"></span>
                             </td>
                         </tr>
                         <tr>
@@ -217,12 +235,12 @@
                         <tr>
                             <td class="form-group"><label>商品价格</label></td>
                             <td class="form-group">
-                                <input required type="text" class="form-control" minlength="1" maxlength="20" autofocus id="trade_value" name="trade_value">
+                                <input required type="text" class="form-control" minlength="1" maxlength="20" autofocus id="trade_value" name="trade_value" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')">
                                 <span class="msg-default hidden">价格为空</span>
                             </td>
                             <td class="form-group"><label>商品数量</label></td>
                             <td class="form-group">
-                                <input class="form-control" id="trade_number" name="trade_number" required type="text">
+                                <input class="form-control" id="trade_number" name="trade_number" required type="text" onkeyup="value=value.replace(/[^\d]/g,'')">
                                 <span class="msg-default hidden"></span>
                             </td>
                         </tr>
@@ -270,18 +288,37 @@
                 count++;
             }
         }
-        if (count == 5) {
-            document.getElementById("fm-register").submit();
-        } else {
-            alert("请正确输入信息！");
-        }
+        var trade_type = document.getElementById("trade_type");
+        var checks = document.getElementById("check");
+        <% if (flag == "3") {%>
+            if (count == 4){
+                checks.value = "0";
+                document.getElementById("fm-register").submit();
+            }
+            else
+                alert("请正确输入信息！");
+            <%}%>
+         <% if (flag != "3") {%>
+              if (count == 5 && trade_type.value != "请选择") {
+                  checks.value = "1";
+                  document.getElementById("fm-register").submit();
+              }
+              else
+                alert("请正确输入信息！");
+         <%}%>
     }
 </script>
 
 <%
     if (flag == "3") {%>
 <script>
-    $('#account').prop('readonly',true);
+    var xmlhttp = null;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    $('#trade_id').prop('readonly',true);
 </script>
 <%}%>
 
@@ -324,48 +361,92 @@
     }
 
     /*1.对用户名进行验证*/
-    $('#account').blur(function () {
+    $('#trade_id').blur(function () {
+        var checks = document.getElementById("check");
+        checks.value = "1";
         if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '帐号不能为空';
+            this.nextElementSibling.innerHTML = '编号不能为空';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('帐号不能为空');
+            this.setCustomValidity('编号不能为空');
         } else if (this.validity.tooLong) {
-            this.nextElementSibling.innerHTML = '帐号不能多余20位';
+            this.nextElementSibling.innerHTML = '编号不能多余20位';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('帐号不能多余20位');
+            this.setCustomValidity('编号不能多余20位');
         } else {
             //获取输入框中的值
-            var u = document.getElementById("account");
-            var account = u.value;
+            var u = document.getElementById("trade_id");
+            var trade_id = u.value;
             //处理回调函数
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.status == 200 && xmlhttp.readyState == 4) {
                     var msg = xmlhttp.responseText;
                     if (msg == "true") {
-                        u.nextElementSibling.innerHTML = '帐号已被注册';
+                        u.nextElementSibling.innerHTML = '编号已被注册';
                         u.nextElementSibling.className = 'msg-error';
                     } else {
-                        u.nextElementSibling.innerHTML = '帐号可用';
+                        u.nextElementSibling.innerHTML = '编号可用';
                         u.nextElementSibling.className = 'msg-success';
                     }
                 }
             }
-            xmlhttp.open("get", "<%=ctxPath%>/checkName.do?account=" + account);
+            xmlhttp.open("get", "<%=ctxPath%>/checkId.do?trade_id=" + trade_id);
             xmlhttp.send();
         }
     });
-    $('#account').focus(function () {
+    $('#trade_id').focus(function () {
         this.nextElementSibling.innerHTML = '长度10位之间';
         this.nextElementSibling.className = 'msg-default';
     });
 </script>
 <% }%>
 <script>
-    $('#username').blur(function () {
+    $('#trade_name').blur(function () {
         if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '姓名不能为空';
+            this.nextElementSibling.innerHTML = '名称不能为空';
             this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('姓名不能为空');
+            this.setCustomValidity('名称不能为空');
+        }
+        else if (this.validity.tooLong) {
+            this.nextElementSibling.innerHTML = '不能多于40位';
+            this.nextElementSibling.className = 'msg-error';
+            this.setCustomValidity('不能多于40位');
+        }
+        else {
+            this.nextElementSibling.innerHTML = '名称格式正确';
+            this.nextElementSibling.className = 'msg-success';
+            this.setCustomValidity('');
+        }
+    });
+    $('#trade_name').focus(function () {
+        this.nextElementSibling.innerHTML = '';
+        this.nextElementSibling.className = 'msg-default';
+    });
+    $('#trade_value').blur(function () {
+        if (this.validity.valueMissing) {
+            this.nextElementSibling.innerHTML = '价格不能为空';
+            this.nextElementSibling.className = 'msg-error';
+            this.setCustomValidity('价格不能为空');
+        }
+        else if (this.validity.tooLong) {
+            this.nextElementSibling.innerHTML = '不能多于20位';
+            this.nextElementSibling.className = 'msg-error';
+            this.setCustomValidity('价格多于20位');
+        }
+        else {
+            this.nextElementSibling.innerHTML = '价格格式正确';
+            this.nextElementSibling.className = 'msg-success';
+            this.setCustomValidity('');
+        }
+    });
+    $('#trade_value').focus(function () {
+        this.nextElementSibling.innerHTML = '';
+        this.nextElementSibling.className = 'msg-default';
+    });
+    $('#trade_number').blur(function () {
+        if (this.validity.valueMissing) {
+            this.nextElementSibling.innerHTML = '数量不能为空';
+            this.nextElementSibling.className = 'msg-error';
+            this.setCustomValidity('数量不能为空');
         }
         else if (this.validity.tooLong) {
             this.nextElementSibling.innerHTML = '不能多于20位';
@@ -373,95 +454,15 @@
             this.setCustomValidity('不能多于20位');
         }
         else {
-            this.nextElementSibling.innerHTML = '姓名格式正确';
+            this.nextElementSibling.innerHTML = '数量格式正确';
             this.nextElementSibling.className = 'msg-success';
             this.setCustomValidity('');
         }
     });
-    $('#username').focus(function () {
-        this.nextElementSibling.innerHTML = '长度10位之间';
+    $('#trade_number').focus(function () {
+        this.nextElementSibling.innerHTML = '';
         this.nextElementSibling.className = 'msg-default';
     });
-
-    /*2.对密码进行验证*/
-    $('#passwords').blur(function () {
-        if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '密码不能为空';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('密码不能为空');
-        } else if (this.validity.tooShort) {
-            this.nextElementSibling.innerHTML = '长度不能少于8位';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('长度不能少于8位');
-        }
-        else if (this.validity.tooLong) {
-            this.nextElementSibling.innerHTML = '长度不能多于40位';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('长度不能多于40位');
-        }
-        else {
-            this.nextElementSibling.innerHTML = '密码格式正确';
-            this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
-        }
-    });
-    $('#passwords').focus(function () {
-        this.nextElementSibling.innerHTML = '长度在8到40位之间';
-        this.nextElementSibling.className = 'msg-default';
-    });
-
-    /*3.对邮箱地址进行验证*/
-    $('#birthday').blur(function () {
-        if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '出生日期不能为空';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('出生日期不能为空');
-        } else if (this.validity.typeMismatch) {
-            this.nextElementSibling.innerHTML = '格式不正确';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('格式不正确');
-        } else {
-            this.nextElementSibling.innerHTML = '格式正确';
-            this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
-            //  var data =document.getElementById("email").value;
-            var data = $("#birthday").val();
-            if (!data) {   //用户没有输入任何内容
-                return;
-            }
-        }
-    });
-    $('#birthday').focus(function () {
-        this.nextElementSibling.innerHTML = '出生日期不能为空';
-        this.nextElementSibling.className = 'msg-default';
-    });
-
-    /*4.对手机号进行验证*/
-    $('#phone').blur(function () {
-        if (this.validity.valueMissing) {
-            this.nextElementSibling.innerHTML = '手机号不能为空';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('手机号不能为空');
-        } else if (this.validity.patternMismatch) {
-            this.nextElementSibling.innerHTML = '格式不正确';
-            this.nextElementSibling.className = 'msg-error';
-            this.setCustomValidity('格式不正确');
-        } else {
-            this.nextElementSibling.innerHTML = '格式正确';
-            this.nextElementSibling.className = 'msg-success';
-            this.setCustomValidity('');
-            //  var data =document.getElementById("email").value;
-            var data = $("#phone").val();
-            if (!data) {   //用户没有输入任何内容
-                return;
-            }
-        }
-    });
-    $('#phone').focus(function () {
-        this.nextElementSibling.innerHTML = '手机号不能为空';
-        this.nextElementSibling.className = 'msg-default';
-    });
-
 </script>
 </body>
 

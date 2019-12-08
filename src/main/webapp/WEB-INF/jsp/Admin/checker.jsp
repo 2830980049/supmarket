@@ -175,7 +175,8 @@
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
-                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/admin/admin">所有商品</a></li>
+                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryTrade.do">所有商品</a></li>
+                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/queryRecord.do">消费记录</a></li>
                     <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/Admin/addtrade.do">添加商品</a></li>
                 </ul>
             </div>
@@ -289,33 +290,29 @@
                 count++;
             }
         }
-        if (count == 5) {
+        var checks = document.getElementById("check");
+        <% if (flag == "3") {%>
+        if (count == 4) {
+            checks.value = "0";
             document.getElementById("fm-register").submit();
-        } else {
-            alert("请正确输入信息！");
         }
+        else
+            alert("请正确输入信息！");
+        <%}%>
+        <% if (flag != "3") {%>
+        if (count == 5) {
+            checks.value = "1";
+            document.getElementById("fm-register").submit();
+        }
+        else
+            alert("请正确输入信息！");
+        <%}%>
     }
 </script>
 
 <% if (flag == "3") {%>
 <script>
-    var xmlhttp = null;
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
     $('#account').prop('readonly',true);
-    $('#account').blur(function () {
-            var checks = document.getElementById("check");
-            checks.value = "0";
-            //获取输入框中的值
-            var u = document.getElementById("account");
-            //处理回调函数
-            var msg = xmlhttp.responseText;
-            u.nextElementSibling.innerHTML = '帐号可用';
-            u.nextElementSibling.className = 'msg-success';
-    });
 </script>
 <%}%>
 
@@ -331,8 +328,6 @@
     }
     /*1.对用户名进行验证*/
     $('#account').blur(function () {
-        var checks = document.getElementById("check");
-        checks.value = "1";
         if (this.validity.valueMissing) {
             this.nextElementSibling.innerHTML = '帐号不能为空';
             this.nextElementSibling.className = 'msg-error';

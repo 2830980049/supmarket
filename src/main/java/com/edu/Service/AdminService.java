@@ -1,6 +1,7 @@
 package com.edu.Service;
 
 import com.edu.Mapper.base.AdminBaseMapper;
+import com.edu.Pojo.Goods_records;
 import com.edu.Pojo.Trade;
 import com.edu.Pojo.User;
 import org.aspectj.weaver.Checker;
@@ -35,6 +36,23 @@ public class AdminService {
         return true;
     }
 
+    public boolean checkIds(Trade trade){
+        List<Trade> trades = null;
+        trades = adminBaseMapper.queryTradeAll(trade);
+        System.out.println(trades);
+        System.out.println(trades.isEmpty());
+        if(trades.isEmpty())
+            return false;
+        return true;
+    }
+
+    public boolean insertTrade(Trade trade){
+        int flag = adminBaseMapper.insertTrade(trade);
+        if(flag > 0)
+            return true;
+        return false;
+    }
+
     public List<User> queryStaffs(){
         List<User> users = null;
         users = adminBaseMapper.queryCheckerAll(null);
@@ -45,6 +63,20 @@ public class AdminService {
 
     public boolean deletes(User user){
         int m = adminBaseMapper.deleteChecker(user);
+        if(m > 0)
+            return true;
+        return false;
+    }
+
+    public boolean delete_Trade(Trade trade){
+        int m = adminBaseMapper.deleteTrade(trade);
+        if(m > 0)
+            return true;
+        return false;
+    }
+
+    public boolean delete_record(Goods_records goods_records){
+        int m = adminBaseMapper.deleteRecord(goods_records);
         if(m > 0)
             return true;
         return false;
@@ -63,8 +95,20 @@ public class AdminService {
         return false;
     }
 
+    public boolean updatasTrade(Trade trade){
+        int m = adminBaseMapper.updataTrade(trade);
+        if(m > 0)
+            return true;
+        return false;
+    }
+
+    public List<Goods_records> queryRecord(){
+        List<Goods_records> list = adminBaseMapper.queryRecord();
+        return list;
+    }
+
     public List<Trade> queryAll(){
-        List<Trade> list = adminBaseMapper.queryTradeAll();
+        List<Trade> list = adminBaseMapper.queryTradeAll(null);
         return list;
     }
 

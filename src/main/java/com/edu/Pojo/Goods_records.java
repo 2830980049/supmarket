@@ -13,6 +13,15 @@ public class Goods_records {
     private String trade_type;      //商品类型
     private String discount_type;    //打折类型
     private Integer trade_number;  //商品数量
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getGoods_id() {
         return goods_id;
@@ -72,7 +81,7 @@ public class Goods_records {
 
     @Override
     public String toString() {
-        return "Goods{" +
+        return "Goods_records{" +
                 "goods_id='" + goods_id + '\'' +
                 ", goods_second_id='" + goods_second_id + '\'' +
                 ", trade_id='" + trade_id + '\'' +
@@ -80,6 +89,7 @@ public class Goods_records {
                 ", trade_type='" + trade_type + '\'' +
                 ", discount_type='" + discount_type + '\'' +
                 ", trade_number=" + trade_number +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

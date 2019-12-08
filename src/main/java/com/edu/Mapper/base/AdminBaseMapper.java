@@ -1,5 +1,6 @@
 package com.edu.Mapper.base;
 
+import com.edu.Pojo.Goods_records;
 import com.edu.Pojo.Trade;
 import com.edu.Pojo.User;
 
@@ -19,7 +20,9 @@ public interface AdminBaseMapper {
     int insertTrade(Trade trade);
     int updataTrade(Trade trade);
     int deleteTrade(Trade trade);
-    List<Trade>queryTradeAll();
-
+    List<Trade>queryTradeAll(Trade trade);
     List<Trade>queryTrade_TypeAll(Trade trade);
+
+    List<Goods_records> queryRecord();
+    int deleteRecord(Goods_records goods_records);
 }

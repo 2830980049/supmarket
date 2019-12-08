@@ -1,5 +1,6 @@
 package com.edu.Controller;
 
+import com.edu.Pojo.Goods_records;
 import com.edu.Pojo.Trade;
 import com.edu.Pojo.User;
 import com.edu.Service.AdminService;
@@ -51,13 +52,22 @@ public class AdminController {
         return  mav;
     }
 
+    @RequestMapping(value = "/update_Trade.do",method = RequestMethod.GET)
+    public ModelAndView update_Trades(@RequestParam String trade_id,@RequestParam String trade_type,@RequestParam String trade_type_id){
+        ModelAndView mav = new ModelAndView("Admin/trade");
+        mav.addObject("flag","3");
+        mav.addObject("trade_id",trade_id);
+        mav.addObject("trade_type",trade_type);
+        mav.addObject("trade_type_id",trade_type_id);
+        return  mav;
+    }
+
+
     @RequestMapping(value = "delete.do",method = RequestMethod.GET)
     public void deletes(@RequestParam String account, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
         user.setAccount(account);
         boolean flags = adminService.deletes(user);
-        String url = request.getContextPath()+"/queryStaff.do";
-        System.out.println(url);
         //ModelAndView mav = new ModelAndView(url);
         if(flags)
             request.setAttribute("flag", "4");
@@ -72,10 +82,91 @@ public class AdminController {
         //request.getRequestDispatcher(url).forward(request, response);
     }
 
+    @RequestMapping(value = "/delete_record.do",method = RequestMethod.GET)
+    public void delete_records(@RequestParam String goods_second_id, HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
+        Goods_records goods_records = new Goods_records();
+        goods_records.setGoods_second_id(goods_second_id);
+        boolean flags = adminService.delete_record(goods_records);
+        //ModelAndView mav = new ModelAndView(url);
+        if(flags)
+            request.setAttribute("flag", "4");
+            //request.setAttribute("flag", "4");
+            //mav.addObject("flag","4");
+        else
+            request.setAttribute("flag", "-4");
+        //request.setAttribute("flag", "-4");
+        //mav.addObject("flag","-4");
+        request.getRequestDispatcher("/queryRecord.do").forward(request,response);
+        //response.sendRedirect(url);
+        //request.getRequestDispatcher(url).forward(request, response);
+    }
+
+    @RequestMapping(value = "delete_Trade.do",method = RequestMethod.GET)
+    public void delete_Trades(@RequestParam String trade_id, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        Trade trade = new Trade();
+        trade.setTrade_id(trade_id);
+        boolean flags = adminService.delete_Trade(trade);
+        //ModelAndView mav = new ModelAndView(url);
+        if(flags)
+            request.setAttribute("flag", "4");
+            //request.setAttribute("flag", "4");
+            //mav.addObject("flag","4");
+        else
+            request.setAttribute("flag", "-4");
+        //request.setAttribute("flag", "-4");
+        //mav.addObject("flag","-4");
+        request.getRequestDispatcher("/queryTrade.do").forward(request,response);
+        //response.sendRedirect(url);
+        //request.getRequestDispatcher(url).forward(request, response);
+    }
+
     @RequestMapping(value = "/addchecker.do",method = RequestMethod.GET)
     public ModelAndView addchecker(){
         ModelAndView mav = new ModelAndView("Admin/checker");
         mav.addObject("account","");
+        return mav;
+    }
+
+    @RequestMapping(value = "/addtrade.do",method = RequestMethod.GET)
+    public ModelAndView addtrade(){
+        List<Trade> type = adminService.queryTypeAll(null);
+        ModelAndView mav = new ModelAndView("Admin/trade");
+        for(Trade s:type)
+            System.out.println(s);
+        mav.addObject("list",type);
+        return mav;
+    }
+
+    @RequestMapping(value = "/addtrade.do",method = RequestMethod.POST)
+    public ModelAndView addtrade1(@RequestParam String trade_type, @RequestParam String trade_type_id, @RequestParam String trade_id,
+                                  @RequestParam String trade_name, @RequestParam String trade_value,@RequestParam String trade_number,
+                                  @RequestParam String check,HttpServletResponse response)throws ServletException, IOException{
+        ModelAndView mav = new ModelAndView("Admin/trade") ;
+        Trade trade = new Trade();
+        trade.setTrade_id(trade_id);
+        trade.setTrade_type(trade_type);
+        trade.setTrade_number(Integer.parseInt(trade_number));
+        trade.setTrade_value(Double.parseDouble(trade_value));
+        trade.setTrade_name(trade_name);
+        trade.setTrade_type_id(trade_type_id);
+        boolean flag = false;
+        System.out.println(check);
+        if(check.equals("1")) {
+            flag = adminService.insertTrade(trade);
+            System.out.println("check m ="+flag);
+            if(flag)
+                mav.addObject("flag","1");
+            else
+                mav.addObject("flag","0");
+        }
+        else if(check.equals("0")){
+            flag = adminService.updatasTrade(trade);
+            System.out.println("check m = "+flag);
+            if (flag)
+                mav.addObject("flag", "4");
+            else
+                mav.addObject("flag", "5");
+        }
         return mav;
     }
 
@@ -94,23 +185,6 @@ public class AdminController {
         list1.add(taskMaps);
         map.put("tasks",list1);
         return map;
-    }
-
-    @RequestMapping(value = "/addtrade.do",method = RequestMethod.GET)
-    public ModelAndView addtrade(){
-        List<Trade> type = adminService.queryTypeAll(null);
-        ModelAndView mav = new ModelAndView("Admin/trade");
-        for(Trade s:type)
-            System.out.println(s);
-        mav.addObject("list",type);
-        return mav;
-    }
-
-    @RequestMapping(value = "/addtrade.do",method = RequestMethod.POST)
-    public ModelAndView addtrades(@RequestParam String trade_id, @RequestParam String trade_name, @RequestParam String trade_type,
-                                  @RequestParam String trade_value, @RequestParam String trade_number, HttpServletResponse response){
-        ModelAndView mav = new ModelAndView();
-        return  mav;
     }
 
     @RequestMapping(value = "/addchecker.do",method = RequestMethod.POST)
