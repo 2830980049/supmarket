@@ -109,31 +109,6 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-<%
-    String flag = (String) request.getAttribute("flag");
-    if (flag == "1") {%>
-<script>
-    alert("修改成功！");
-</script>
-<%}%>
-<%
-    if (flag == "2") {%>
-<script>
-    alert("修改失败！");
-</script>
-<%}%>
-<%
-    if (flag == "3") {%>
-<script>
-    alert("删除成功！");
-</script>
-<%}%>
-<%
-    if (flag == "4") {%>
-<script>
-    alert("删除失败！");
-</script>
-<%}%>
 
 <div class="wrapper">
     <header class="main-header">
@@ -182,7 +157,7 @@
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
                     <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryTrade.do">所有商品</a></li>
-                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/queryRecord.do">消费记录</a></li>
+                    <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/queryRecord.do?flag=0">消费记录</a></li>
                     <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
                     <li role="presentation" id="bar-5"><a href="<%=ctxPath%>/Admin/addtrade.do">添加商品</a></li>
                 </ul>

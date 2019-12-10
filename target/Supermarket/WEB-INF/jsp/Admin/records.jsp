@@ -106,15 +106,15 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
 <%
-    String flag = (String) request.getAttribute("flag");
+    String flag1 = (String) request.getAttribute("flag1");
 %>
-<% if(flag == "4"){%>
+<% if(flag1 == "4"){%>
 <script>
     swal("删除成功！", "该记录已经被删除！", "success");
 </script>
 <% }%>
 
-<% if(flag == "-4"){%>
+<% if(flag1 == "-4"){%>
 <script>
     swal("删除失败！", "删除失败！", "error");
 </script>
@@ -259,7 +259,7 @@
             },
             function(isConfirm){
                 if (isConfirm)
-                    window.location.href = "<%=ctxPath%>/Admin/delete_record.do?goods_id="+goods_id;
+                    window.location.href = "<%=ctxPath%>/Admin/delete_record.do?goods_id="+goods_id+"&flag1="+0;
                 else {
                     swal("取消！", "该记录是安全的)",
                         "error");

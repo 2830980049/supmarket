@@ -180,6 +180,7 @@
         <result property="trade_number" column="trade_number"></result>
         <result property="discount_type" column="discount_type"></result>
         <result property="status" column="status"></result>
+        <result property="total" column="total"></result>
     </resultMap>
 
     <select id="queryCheckerAll" resultMap="User">

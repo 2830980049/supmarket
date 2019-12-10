@@ -107,6 +107,7 @@ public class AdminService {
 
     public List<Trade> queryAll(Trade trade){
         List<Trade> list = adminBaseMapper.queryTradeAll(trade);
+        System.out.println(list.get(0));
         return list;
     }
 

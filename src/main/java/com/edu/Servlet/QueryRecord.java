@@ -41,9 +41,23 @@ public class QueryRecord extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<Goods_records> list = adminService.queryRecord();
-        session.setAttribute("flag", (String) req.getAttribute("flag"));
+        Object obj = null;
+        obj = req.getAttribute("flag");
+        Object boj1 = null;
+        boj1 = req.getParameter("flag");
+        //Object flag = (String)req.getParameter("flag");
+        if(boj1 == null)
+            session.setAttribute("flag", (String) req.getAttribute("flag"));
+        else
+            session.setAttribute("flag",req.getParameter("flag"));
+        session.setAttribute("flag1",(String) req.getAttribute("flag1"));
+        /*
+        System.out.println(" queryRecord flag  setAttribute "+req.getAttribute("flag"));
+        System.out.println(" queryRecord flag  setParameter "+req.getParameter("flag"));
+        System.out.println(" queryRecord flag  setParameter isEmpty "+req.getParameter("flag").isEmpty());
+        System.out.println(" queryRecord flag1  " + req.getAttribute("flag1"));
+           */
         session.setAttribute("list", list);
-        System.out.println("flag = "+(String) req.getAttribute("flag"));
         req.getRequestDispatcher("/queryRecords.do").forward(req,resp);
         //resp.sendRedirect(req.getContextPath()+"/queryStaffs.do");
     }

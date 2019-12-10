@@ -62,7 +62,6 @@ public class AdminController {
         return  mav;
     }
 
-
     @RequestMapping(value = "delete.do",method = RequestMethod.GET)
     public void deletes(@RequestParam String account, HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
@@ -83,17 +82,18 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/delete_record.do",method = RequestMethod.GET)
-    public void delete_records(@RequestParam String goods_id, HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
+    public void delete_records(@RequestParam String goods_id, @RequestParam String flag1,HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
         Goods_records goods_records = new Goods_records();
         goods_records.setGoods_id(goods_id);
         boolean flags = adminService.delete_record(goods_records);
         //ModelAndView mav = new ModelAndView(url);
+        request.setAttribute("flag",flag1);
         if(flags)
-            request.setAttribute("flag", "4");
+            request.setAttribute("flag1", "4");
             //request.setAttribute("flag", "4");
             //mav.addObject("flag","4");
         else
-            request.setAttribute("flag", "-4");
+            request.setAttribute("flag1", "-4");
         //request.setAttribute("flag", "-4");
         //mav.addObject("flag","-4");
         request.getRequestDispatcher("/queryRecord.do").forward(request,response);

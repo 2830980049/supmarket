@@ -187,7 +187,7 @@
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
                     <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/addSell.do">新建销售</a></li>
-                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryTrade.do">退货处理</a></li>
+                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryRecord.do?flag=1">退货处理</a></li>
                 </ul>
             </div>
             <!-- 侧栏菜单::style可以在sidebar.less中找到-->

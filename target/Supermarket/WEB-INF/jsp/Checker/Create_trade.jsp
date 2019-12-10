@@ -223,7 +223,7 @@
                             </td>
                         </tr>
                     </table>
-                    <input class="btn btn-default" id="bt-register" type="button" value="保存" onclick="sub();"/>
+                    <input class="btn btn-default" id="bt-register" type="button" value="提交" onclick="sub();"/>
                     <input class="btn btn-default" type="reset" value="重置">
                 </form>
             </div>

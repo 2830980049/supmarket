@@ -1,5 +1,11 @@
 package com.edu.Pojo;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+
 /**
  * @author Wuqili
  * @version 1.0
@@ -12,7 +18,16 @@ public class Goods_records {
     private String trade_type;      //商品类型
     private String discount_type;    //打折类型
     private Integer trade_number;  //商品数量
-    private String status;
+    private String status;      //状态
+    private Double total;       //消费总额
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
 
     public String getGoods_id() {
         return goods_id;

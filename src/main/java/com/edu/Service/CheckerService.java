@@ -41,4 +41,11 @@ public class CheckerService {
         return false;
     }
 
+    public boolean updatestatus(Goods_records goods_records){
+        int flag = checkerMapper.update_status(goods_records);
+        if (flag > 0)
+            return true;
+        return false;
+    }
+
 }
