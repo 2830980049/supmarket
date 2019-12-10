@@ -84,7 +84,7 @@ public class AdminController {
     @RequestMapping(value = "/delete_record.do",method = RequestMethod.GET)
     public void delete_records(@RequestParam String goods_id, @RequestParam String flag1,HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
         Goods_records goods_records = new Goods_records();
-        goods_records.setGoods_id(goods_id);
+        goods_records.setGoods_id(Integer.parseInt(goods_id));
         boolean flags = adminService.delete_record(goods_records);
         //ModelAndView mav = new ModelAndView(url);
         request.setAttribute("flag",flag1);

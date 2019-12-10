@@ -12,7 +12,7 @@ import java.io.*;
  * @date 2019/12/4 12:24
  */
 public class Goods_records {
-    private String goods_id;        //消费主编号
+    private Integer goods_id;        //消费主编号
     private String trade_id;        //商品编号
     private String trade_name;      //商品名称
     private String trade_type;      //商品类型
@@ -29,11 +29,11 @@ public class Goods_records {
         this.total = total;
     }
 
-    public String getGoods_id() {
+    public Integer getGoods_id() {
         return goods_id;
     }
 
-    public void setGoods_id(String goods_id) {
+    public void setGoods_id(Integer goods_id) {
         this.goods_id = goods_id;
     }
 

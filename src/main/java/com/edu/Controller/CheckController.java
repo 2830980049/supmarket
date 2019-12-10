@@ -41,7 +41,7 @@ public class CheckController {
         Integer max = checkerService.Maxs();
         max += 1;
         Goods_records goods_records = new Goods_records();
-        goods_records.setGoods_id(max.toString());
+        goods_records.setGoods_id(max);
         goods_records.setTrade_id(trade_id);
 
         Trade trade = new Trade();
@@ -90,20 +90,21 @@ public class CheckController {
         goods_records.setDiscount_type(discounts);
         goods_records.setTotal(num);
         System.out.println(discounts);
-        System.out.println(goods_records.getDiscount_type());
+        System.out.println(goods_records.getTotal());
         boolean m = checkerService.addGoods(goods_records);
         System.out.println("maxs m ="+max);
         if(m)
             mav.addObject("flag","1");
         else
             mav.addObject("flag","0");
+        mav.addObject("total",num.toString());
         return mav;
     }
 
     @RequestMapping(value = "/updatestatus.do",method = RequestMethod.GET)
     public void updatestatus(@RequestParam String goods_id, @RequestParam String flag1,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Goods_records goods_records = new Goods_records();
-        goods_records.setGoods_id(goods_id);
+        goods_records.setGoods_id(Integer.parseInt(goods_id));
         goods_records.setStatus("已退货");
         boolean flag = checkerService.updatestatus(goods_records);
         request.setAttribute("flag",flag1);

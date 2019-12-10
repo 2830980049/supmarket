@@ -106,9 +106,10 @@
 
 <%
     String flag = (String) request.getAttribute("flag");
+    //String total = (String) request.getAttribute("total");
     if (flag == "1") {%>
 <script>
-    swal("添加成功！", "信息已全部添加到数据库！", "success");
+    swal("添加成功！消费总额：${total}元", "数据已成功添加到数据库", "success");
 </script>
 <%}%>
 <%
@@ -151,6 +152,11 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown user user-menu">
+                        <a class="dropdown-toggle"  href="<%=ctxPath%>/login.do">
+                            <span class="hidden-xs">退出</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -163,7 +169,7 @@
             <!-- 侧边栏用户面板 -->
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
-                    <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">退货处理</a></li>
+                    <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryRecord.do?flag=1">退货处理</a></li>
                 </ul>
             </div>
             <!-- 侧栏菜单::style可以在sidebar.less中找到-->
@@ -205,7 +211,7 @@
                             </td>
                             <td class="form-group"><label>打折类型</label></td>
                             <td class="form-group">
-                                <input class="form-control" id="discount_type" name="discount_type" required type="text">
+                                <input class="form-control" id="discount_type" name="discount_type" required type="text" readonly>
                                 <span class="msg-success"></span>
                             </td>
                         </tr>

@@ -174,6 +174,11 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown user user-menu">
+                        <a class="dropdown-toggle"  href="<%=ctxPath%>/login.do">
+                            <span class="hidden-xs">退出</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

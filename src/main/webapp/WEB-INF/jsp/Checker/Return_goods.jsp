@@ -153,6 +153,11 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown user user-menu">
+                        <a class="dropdown-toggle"  href="<%=ctxPath%>/login.do">
+                            <span class="hidden-xs">退出</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -197,6 +202,7 @@
                             <th style="text-align: center">商品数量</th>
                             <th style="text-align: center">打折类型</th>
                             <th style="text-align: center">状态</th>
+                            <th style="text-align: center">消费额</th>
                             <th style="text-align: center">操作</th>
                         </tr>
                         </thead>
@@ -211,6 +217,7 @@
                                     <td>${record.trade_number}</td>
                                     <td>${record.discount_type}</td>
                                     <td>${record.status}</td>
+                                    <td>${record.total}</td>
                                     <c:if test="${record.status != '已退货'}">
                                         <td><a href="#" onclick="subs(${record.goods_id});" style="color: crimson;font-weight: bold">退货</a></td>
                                     </c:if>
