@@ -15,6 +15,10 @@
     <title>员工个人信息详情表</title>
     <!-- 告诉浏览器响应屏幕宽度 -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" type="text/css" href="<%=ctxPath%>/src/res/css/sweetalert.css">
+    <script type="text/javascript" src="<%=ctxPath%>/src/res/js/sweetalert-dev.js"></script>
+
     <!-- Bootstrap 3.3.7 -->
     <link href="<%=ctxPath%>/src/res/css/bootsrap.min.css" rel="stylesheet">
     <!-- 象形异体字 -->
@@ -28,6 +32,7 @@
           rel="stylesheet">
     <!--导入vue.js有网的时候推荐-->
     <script charset="UTF-8" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <!--没网的时候-->
     <!--script src="<%=ctxPath%>/src/res/js/vue.js" type="text/javascript" charset="UTF-8"></script-->
     <style type="text/css">
@@ -101,20 +106,6 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-<%
-    String flag = (String) request.getAttribute("flag");
-%>
-<% if(flag == "4"){%>
-    <script>
-        alert("删除成功");
-    </script>
-<% }%>
-
-<% if(flag == "-4"){%>
-<script>
-    alert("删除失败");
-</script>
-<% }%>
 
 <div class="wrapper">
     <header class="main-header">
@@ -253,10 +244,28 @@
     }
     function subs(st) {
         var account = st;
-        var result = window.confirm("您确定删除该员工信息?");
-        if (result) {
-            window.location.href = "<%=ctxPath%>/Admin/delete.do?account="+account;
-        }
+        var result = swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该员工信息！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定删除！",
+                cancelButtonText: "取消删除！",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm){
+                if (isConfirm) {
+                    window.location.href = "<%=ctxPath%>/Admin/delete.do?account="+account;
+                    swal("删除！", "该员工信息已经被删除。",
+                        "success");
+                } else {
+                    swal("取消！", "该员工信息是安全的:)",
+                        "error");
+                }
+            }
+        );
     }
 </script>
 </body>

@@ -83,9 +83,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/delete_record.do",method = RequestMethod.GET)
-    public void delete_records(@RequestParam String goods_second_id, HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
+    public void delete_records(@RequestParam String goods_id, HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
         Goods_records goods_records = new Goods_records();
-        goods_records.setGoods_second_id(goods_second_id);
+        goods_records.setGoods_id(goods_id);
         boolean flags = adminService.delete_record(goods_records);
         //ModelAndView mav = new ModelAndView(url);
         if(flags)
@@ -182,6 +182,32 @@ public class AdminController {
         System.out.println(trades);
         Map<String,String> taskMaps = new HashMap<String,String>();
         taskMaps.put("trade_id",trades.get(0).getTrade_type_id());
+        list1.add(taskMaps);
+        map.put("tasks",list1);
+        return map;
+    }
+
+    @RequestMapping("/query_ids")
+    public @ResponseBody Map<String,Object> queryAlls(String trade_id) throws Exception{
+        Map<String,Object> map = new HashMap<String,Object>();
+        Trade trade = new Trade();
+        trade.setTrade_id(trade_id);
+        List<Trade> trades = null;
+        List list1 = null;
+        list1 = new ArrayList();
+        trades = adminService.queryAll(trade);
+        System.out.println(trades);
+        Map<String,String> taskMaps = new HashMap<String,String>();
+        System.out.println(trade_id);
+        if(trades.isEmpty()){
+            taskMaps.put("trade_name","");
+            taskMaps.put("trade_type","");
+        }
+        else {
+            System.out.println(trades.get(0).getTrade_name()+"  "+trades.get(0).getTrade_type());
+            taskMaps.put("trade_name",trades.get(0).getTrade_name());
+            taskMaps.put("trade_type",trades.get(0).getTrade_type());
+        }
         list1.add(taskMaps);
         map.put("tasks",list1);
         return map;

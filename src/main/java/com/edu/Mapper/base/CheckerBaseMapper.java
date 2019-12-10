@@ -13,5 +13,6 @@ import java.util.List;
 public interface CheckerBaseMapper {
     int insert_goods_records (Goods_records goods_records);
     int delete_goods_records (Goods_records goods_records);
+    int Max();
     List<User> queryChecker(User user);
 }

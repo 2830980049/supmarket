@@ -45,7 +45,6 @@ public class CheckId extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         Trade trade = new Trade();
         trade.setTrade_id(req.getParameter("trade_id").toString());
-        System.out.println("trade_id "+req.getParameter("trade_id"));
         boolean b = adminService.checkIds(trade);
         resp.getWriter().write(b+"");
     }

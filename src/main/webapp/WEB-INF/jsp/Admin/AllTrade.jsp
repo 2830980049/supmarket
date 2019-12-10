@@ -12,7 +12,11 @@
 <head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <title>员工个人信息详情表</title>
+    <title>商品信息详情表</title>
+
+    <link rel="stylesheet" type="text/css" href="<%=ctxPath%>/src/res/css/sweetalert.css">
+    <script type="text/javascript" src="<%=ctxPath%>/src/res/js/sweetalert-dev.js"></script>
+
     <!-- 告诉浏览器响应屏幕宽度 -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -106,13 +110,13 @@
 %>
 <% if(flag == "4"){%>
 <script>
-    alert("删除成功");
+    swal("删除成功！", "信息已全部添加到数据库！", "success");
 </script>
 <% }%>
 
 <% if(flag == "-4"){%>
 <script>
-    alert("删除失败");
+    swal("删除失败！", "未知错误！", "error");
 </script>
 <% }%>
 
@@ -249,10 +253,26 @@
     }
     function subs(st) {
         var trade_id = st;
-        var result = window.confirm("您确定删除该员工信息?");
-        if (result) {
-            window.location.href = "<%=ctxPath%>/Admin/delete_Trade.do?trade_id="+trade_id;
-        }
+        var result = swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该条信息！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定删除！",
+                cancelButtonText: "取消删除！",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm){
+                if (isConfirm)
+                    window.location.href = "<%=ctxPath%>/Admin/delete_Trade.do?trade_id="+trade_id;
+                else {
+                    swal("取消！", "该记信息是安全的)",
+                        "error");
+                }
+            }
+        );
     }
 </script>
 </body>

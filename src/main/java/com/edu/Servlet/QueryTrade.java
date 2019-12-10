@@ -40,7 +40,7 @@ public class QueryTrade extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        List<Trade> list = adminService.queryAll();
+        List<Trade> list = adminService.queryAll(null);
         session.setAttribute("flag", (String) req.getAttribute("flag"));
         session.setAttribute("list", list);
         System.out.println("flag = "+(String) req.getAttribute("flag"));

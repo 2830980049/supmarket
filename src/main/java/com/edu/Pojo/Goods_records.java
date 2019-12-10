@@ -7,7 +7,6 @@ package com.edu.Pojo;
  */
 public class Goods_records {
     private String goods_id;        //消费主编号
-    private String goods_second_id; //消费次编号
     private String trade_id;        //商品编号
     private String trade_name;      //商品名称
     private String trade_type;      //商品类型
@@ -15,28 +14,12 @@ public class Goods_records {
     private Integer trade_number;  //商品数量
     private String status;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getGoods_id() {
         return goods_id;
     }
 
     public void setGoods_id(String goods_id) {
         this.goods_id = goods_id;
-    }
-
-    public String getGoods_second_id() {
-        return goods_second_id;
-    }
-
-    public void setGoods_second_id(String goods_second_id) {
-        this.goods_second_id = goods_second_id;
     }
 
     public String getTrade_id() {
@@ -79,11 +62,18 @@ public class Goods_records {
         this.trade_number = trade_number;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Goods_records{" +
                 "goods_id='" + goods_id + '\'' +
-                ", goods_second_id='" + goods_second_id + '\'' +
                 ", trade_id='" + trade_id + '\'' +
                 ", trade_name='" + trade_name + '\'' +
                 ", trade_type='" + trade_type + '\'' +

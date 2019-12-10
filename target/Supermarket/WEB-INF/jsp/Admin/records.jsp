@@ -12,7 +12,11 @@
 <head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <title>员工个人信息详情表</title>
+    <title>消费记录详情表</title>
+
+    <link rel="stylesheet" type="text/css" href="<%=ctxPath%>/src/res/css/sweetalert.css">
+    <script type="text/javascript" src="<%=ctxPath%>/src/res/js/sweetalert-dev.js"></script>
+
     <!-- 告诉浏览器响应屏幕宽度 -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -106,13 +110,13 @@
 %>
 <% if(flag == "4"){%>
 <script>
-    alert("删除成功");
+    swal("删除成功！", "该记录已经被删除！", "success");
 </script>
 <% }%>
 
 <% if(flag == "-4"){%>
 <script>
-    alert("删除失败");
+    swal("删除失败！", "删除失败！", "error");
 </script>
 <% }%>
 
@@ -162,6 +166,7 @@
             <div class="user-panel">
                 <ul class="nav nav-pills nav-stacked">
                     <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation" id="bar-1"><a href="<%=ctxPath%>/queryStaff.do">所有员工</a></li>
                         <li role="presentation" id="bar-2"><a href="<%=ctxPath%>/queryTrade.do">所有商品</a></li>
                         <li role="presentation" id="bar-3"><a href="<%=ctxPath%>/Admin/addchecker.do">添加员工</a></li>
                         <li role="presentation" id="bar-4"><a href="<%=ctxPath%>/Admin/addtrade.do">添加商品</a></li>
@@ -189,7 +194,6 @@
                         <thead>
                         <tr>
                             <th style="text-align: center">消费主编号</th>
-                            <th style="text-align: center">消费次编号</th>
                             <th style="text-align: center">商品编号</th>
                             <th style="text-align: center">商品名称</th>
                             <th style="text-align: center">商品类型</th>
@@ -201,17 +205,18 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${list}" var="record">
-                            <tr>
-                                <td>${record.goods_id}</td>
-                                <td>${record.goods_second_id}</td>
-                                <td>${record.trade_id}</td>
-                                <td>${record.trade_name}</td>
-                                <td>${record.trade_type}</td>
-                                <td>${record.trade_number}</td>
-                                <td>${record.discount_type}</td>
-                                <td>${record.status}</td>
-                                <td><a href="#" onclick="subs(${record.goods_second_id});" style="color: crimson;font-weight: bold">删除</a></td>
-                            </tr>
+                            <c:if test="${record.goods_id != 0}">
+                                <tr>
+                                    <td>${record.goods_id}</td>
+                                    <td>${record.trade_id}</td>
+                                    <td>${record.trade_name}</td>
+                                    <td>${record.trade_type}</td>
+                                    <td>${record.trade_number}</td>
+                                    <td>${record.discount_type}</td>
+                                    <td>${record.status}</td>
+                                    <td><a href="#" onclick="subs(${record.goods_id});" style="color: crimson;font-weight: bold">删除</a></td>
+                                </tr>
+                            </c:if>
                         </c:forEach>
                         </tbody>
                     </table>
@@ -240,11 +245,27 @@
 </div>
 <script>
     function subs(st) {
-        var goods_second_id = st;
-        var result = window.confirm("您确定删除该员工信息?");
-        if (result) {
-            window.location.href = "<%=ctxPath%>/Admin/delete_record.do?goods_second_id="+goods_second_id;
-        }
+        var goods_id = st;
+        var result = swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该记录信息！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定删除！",
+                cancelButtonText: "取消删除！",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm){
+                if (isConfirm)
+                    window.location.href = "<%=ctxPath%>/Admin/delete_record.do?goods_id="+goods_id;
+                else {
+                    swal("取消！", "该记录是安全的)",
+                        "error");
+                }
+            }
+        );
     }
 </script>
 </body>

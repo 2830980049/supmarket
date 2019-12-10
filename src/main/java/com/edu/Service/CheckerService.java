@@ -1,6 +1,7 @@
 package com.edu.Service;
 
 import com.edu.Mapper.CheckerMapper;
+import com.edu.Pojo.Goods_records;
 import com.edu.Pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,18 @@ public class CheckerService {
         if(list == null || list.size() == 0)
             return null;
         return list.get(0);
+    }
+
+    public int Maxs(){
+        int id_max = checkerMapper.Max();
+        return id_max;
+    }
+
+    public boolean addGoods(Goods_records goods_records){
+        int flag = checkerMapper.insert_goods_records(goods_records);
+        if(flag > 0)
+            return true;
+        return false;
     }
 
 }

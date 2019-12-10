@@ -13,6 +13,10 @@
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <title>商品信息表</title>
+
+    <link rel="stylesheet" type="text/css" href="<%=ctxPath%>/src/res/css/sweetalert.css">
+    <script type="text/javascript" src="<%=ctxPath%>/src/res/js/sweetalert-dev.js"></script>
+
     <!-- 告诉浏览器响应屏幕宽度 -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -106,25 +110,25 @@
     String flag = (String) request.getAttribute("flag");
     if (flag == "1") {%>
 <script>
-    alert("添加成功！");
+    swal("添加成功！", "信息已全部添加到数据库！", "success");
 </script>
 <%}%>
 <%
     if (flag == "0") {%>
 <script>
-    alert("添加失败！");
+    swal("添加失败！", "未知错误！", "error");
 </script>
 <%}%>
 
 <% if (flag == "4") {%>
 <script>
-    alert("修改成功！");
+    swal("修改成功！", "数据已更新！", "success");
 </script>
 <%}%>
 <%
     if (flag == "5") {%>
 <script>
-    alert("修改失败！");
+    swal("修改失败！", "未知错误！", "error");
 </script>
 <%}%>
 

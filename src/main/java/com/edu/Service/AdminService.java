@@ -39,8 +39,6 @@ public class AdminService {
     public boolean checkIds(Trade trade){
         List<Trade> trades = null;
         trades = adminBaseMapper.queryTradeAll(trade);
-        System.out.println(trades);
-        System.out.println(trades.isEmpty());
         if(trades.isEmpty())
             return false;
         return true;
@@ -107,9 +105,10 @@ public class AdminService {
         return list;
     }
 
-    public List<Trade> queryAll(){
-        List<Trade> list = adminBaseMapper.queryTradeAll(null);
+    public List<Trade> queryAll(Trade trade){
+        List<Trade> list = adminBaseMapper.queryTradeAll(trade);
         return list;
     }
+
 
 }

@@ -150,7 +150,7 @@
     </delete>
 
     <delete id="deleteRecord">
-        delete from goods_records where goods_second_id=#{goods_second_id}
+        delete from goods_records where goods_id=#{goods_id}
     </delete>
 
     <resultMap type="com.edu.Pojo.User" id="User">
@@ -174,7 +174,6 @@
 
     <resultMap type="com.edu.Pojo.Goods_records" id="Record">
         <result property="goods_id" column="goods_id"></result>
-        <result property="goods_second_id" column="goods_second_id"></result>
         <result property="trade_id" column="trade_id"></result>
         <result property="trade_name" column="trade_name"></result>
         <result property="trade_type" column="trade_type"></result>

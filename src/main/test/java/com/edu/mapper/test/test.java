@@ -78,11 +78,8 @@ public class test {
     @Test
     public void Checkss() {
         //5 使用代理对象执行方法
-        List<Trade> user = null;
-        //执行保存方法
-        user = adminBaseMapper.queryTrade_TypeAll(null);
-        for (Trade s:user)
-            System.out.println(s);
+        int s = checkerBaseMapper.Max();
+        System.out.println(s);
     }
 
 }

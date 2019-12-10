@@ -52,6 +52,15 @@ public class IndexController {
         return mav;
     }
 
+    @RequestMapping(value = "/addSells.do",method = RequestMethod.GET)
+    public ModelAndView addSells(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mav = new ModelAndView("Checker/Create_trade");
+
+        System.out.println("flag = " + (String)request.getAttribute("flag"));
+        mav.addObject("flag",(String)request.getAttribute("flag"));
+        return mav;
+    }
+
     @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public ModelAndView loginSubmit(@RequestParam String loginname, @RequestParam String password, HttpServletRequest request){
         User user = new User();
